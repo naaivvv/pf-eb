@@ -29,3 +29,6 @@ dist-ssr
 .vscode
 .zed
 config
+
+.vercel
+.env*.local
