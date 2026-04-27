@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import ThermodynamicGrid from "@/components/ui/interactive-thermodynamic-grid";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Send, Sparkles, Bot, User, Paperclip, ArrowUp, CodeXml, Rocket, Layers, Palette, Monitor, FileUp, Image as ImageIcon } from "lucide-react";
+import { ChevronDown, Bot, User, Paperclip, ArrowUp, CodeXml, Rocket, Layers, Palette, Monitor, FileUp, Image as ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fetchAIResponse, type ChatMessage } from "@/lib/ai-service";
 
