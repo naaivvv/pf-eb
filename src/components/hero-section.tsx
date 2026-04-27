@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import ThermodynamicGrid from "@/components/ui/interactive-thermodynamic-grid";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Bot, User, Paperclip, ArrowUp, CodeXml, Rocket, Layers, Palette, Monitor, FileUp, Image as ImageIcon } from "lucide-react";
+import { ChevronDown, Bot, User, Paperclip, ArrowUp, CodeXml, Rocket, Layers, Palette, Monitor, FileUp, Image as ImageIcon, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fetchAIResponse, type ChatMessage } from "@/lib/ai-service";
 
@@ -12,17 +12,42 @@ interface Message {
 }
 
 function formatMessageContent(content: string) {
-  const parts = content.split(/(\*\*.*?\*\*)/g);
-  return parts.map((part, i) => {
-    if (part.startsWith('**') && part.endsWith('**')) {
-      return (
-        <strong key={i} className="font-semibold text-white drop-shadow-sm">
-          {part.slice(2, -2)}
-        </strong>
-      );
+  // Extract attached document if present
+  const docMatch = content.match(/\[Attached Document: (.*?)\]\n([\s\S]*)$/);
+  let mainContent = content;
+  let attachedFileName = null;
+
+  if (docMatch) {
+    mainContent = content.substring(0, docMatch.index).trim();
+    attachedFileName = docMatch[1];
+    if (!mainContent) {
+      mainContent = `Uploaded a document`;
     }
-    return <span key={i}>{part}</span>;
-  });
+  }
+
+  const parts = mainContent.split(/(\*\*.*?\*\*)/g);
+  return (
+    <div className="flex flex-col gap-2">
+      <div>
+        {parts.map((part, i) => {
+          if (part.startsWith('**') && part.endsWith('**')) {
+            return (
+              <strong key={i} className="font-semibold text-white drop-shadow-sm">
+                {part.slice(2, -2)}
+              </strong>
+            );
+          }
+          return <span key={i}>{part}</span>;
+        })}
+      </div>
+      {attachedFileName && (
+        <div className="flex items-center gap-2 mt-1 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 w-fit">
+          <FileUp size={14} className="opacity-70" />
+          <span className="text-xs opacity-70">{attachedFileName}</span>
+        </div>
+      )}
+    </div>
+  );
 }
 
 function TypingIndicator() {
@@ -49,7 +74,25 @@ export default function HeroSection() {
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [attachedFile, setAttachedFile] = useState<{ name: string; content: string } | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setAttachedFile({
+        name: file.name,
+        content: event.target?.result as string,
+      });
+    };
+    reader.readAsText(file);
+    // Reset input so the same file can be uploaded again if removed
+    e.target.value = '';
+  };
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -61,18 +104,25 @@ export default function HeroSection() {
   }, [messages, isTyping]);
 
   const handleSend = async (text: string = inputValue) => {
-    if (!text.trim()) return;
+    if (!text.trim() && !attachedFile) return;
 
     setHasInteracted(true);
+    
+    let finalContent = text.trim();
+    if (attachedFile) {
+      finalContent += `\n\n[Attached Document: ${attachedFile.name}]\n${attachedFile.content}`;
+    }
+
     const userMsg: Message = {
       id: Date.now(),
       role: "user",
-      content: text.trim(),
+      content: finalContent.trim(),
     };
     
     const newMessages = [...messages, userMsg];
     setMessages(newMessages);
     setInputValue("");
+    setAttachedFile(null);
     setIsTyping(true);
 
     try {
@@ -240,10 +290,27 @@ export default function HeroSection() {
                 handleSend(inputValue);
               }}
             >
+              {/* Attachment Badge (if any) */}
+              {attachedFile && (
+                <div className="flex items-center justify-between px-3 py-2 mb-2 rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm">
+                  <div className="flex items-center gap-2 overflow-hidden">
+                    <FileUp size={14} className="text-[var(--primary)] shrink-0" />
+                    <span className="text-xs text-white/70 truncate">{attachedFile.name}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setAttachedFile(null)}
+                    className="p-1 rounded-md text-white/40 hover:text-white hover:bg-white/10 transition-colors shrink-0"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
+              )}
+
               <textarea
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Ask about the projects I've brought to life..."
+                placeholder={attachedFile ? "Add a message about this document..." : "Ask about the projects I've brought to life..."}
                 className="w-full bg-transparent border-none outline-none resize-none flex-1 text-sm sm:text-base placeholder:text-white/30"
                 style={{ color: "var(--foreground)" }}
                 onKeyDown={(e) => {
@@ -256,8 +323,16 @@ export default function HeroSection() {
 
               {/* Bottom Row of Input Box */}
               <div className="flex items-center justify-between mt-2">
+                <input 
+                  type="file" 
+                  ref={fileInputRef} 
+                  onChange={handleFileUpload}
+                  accept=".txt,.md,.csv" 
+                  className="hidden" 
+                />
                 <button
                   type="button"
+                  onClick={() => fileInputRef.current?.click()}
                   className="p-2 rounded-xl text-white/40 hover:text-[var(--primary)] hover:bg-white/5 transition-colors"
                 >
                   <Paperclip size={18} />
@@ -266,11 +341,11 @@ export default function HeroSection() {
                 <Button
                   type="submit"
                   size="icon"
-                  disabled={!inputValue.trim()}
+                  disabled={!inputValue.trim() && !attachedFile}
                   className="h-9 w-9 shrink-0 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   style={{
-                    background: inputValue.trim() ? "linear-gradient(135deg, var(--primary), var(--secondary))" : "rgba(255, 255, 255, 0.05)",
-                    color: inputValue.trim() ? "white" : "rgba(255, 255, 255, 0.3)"
+                    background: (inputValue.trim() || attachedFile) ? "linear-gradient(135deg, var(--primary), var(--secondary))" : "rgba(255, 255, 255, 0.05)",
+                    color: (inputValue.trim() || attachedFile) ? "white" : "rgba(255, 255, 255, 0.3)"
                   }}
                 >
                   <ArrowUp size={18} />
