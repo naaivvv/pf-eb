@@ -286,7 +286,7 @@ export default function HeroSection() {
                     <TypingIndicator />
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
 
