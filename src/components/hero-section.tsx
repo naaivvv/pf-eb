@@ -107,7 +107,7 @@ export default function HeroSection() {
     if (!text.trim() && !attachedFile) return;
 
     setHasInteracted(true);
-    
+
     let finalContent = text.trim();
     if (attachedFile) {
       finalContent += `\n\n[Attached Document: ${attachedFile.name}]\n${attachedFile.content}`;
@@ -118,7 +118,7 @@ export default function HeroSection() {
       role: "user",
       content: finalContent.trim(),
     };
-    
+
     const newMessages = [...messages, userMsg];
     setMessages(newMessages);
     setInputValue("");
@@ -133,7 +133,7 @@ export default function HeroSection() {
       }));
 
       const responseText = await fetchAIResponse(apiMessages);
-      
+
       const aiMsg: Message = {
         id: Date.now() + 1,
         role: "ai",
@@ -206,11 +206,10 @@ export default function HeroSection() {
           {/* Chat History Display */}
           {hasInteracted && (
             <div className="w-full flex-1 flex flex-col mb-6 min-h-0">
-              <div className="flex justify-between items-center mb-4 px-2">
-                <span className="text-xs font-medium text-white/40 uppercase tracking-wider">Conversation</span>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
+              <div className="flex justify-end items-center mb-4 px-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={() => {
                     setMessages([]);
                     setHasInteracted(false);
@@ -223,70 +222,70 @@ export default function HeroSection() {
                   New Chat
                 </Button>
               </div>
-              <div 
-                ref={chatContainerRef} 
+              <div
+                ref={chatContainerRef}
                 className="w-full flex-1 overflow-y-auto pr-2 space-y-6 scrollbar-thin flex flex-col"
               >
-              {messages.map((msg) => (
-                <div
-                  key={msg.id}
-                  className={cn(
-                    "flex gap-3 max-w-[85%]",
-                    msg.role === "user" ? "self-end flex-row-reverse" : "self-start"
-                  )}
-                >
+                {messages.map((msg) => (
                   <div
-                    className="w-8 h-8 rounded-xl flex-shrink-0 flex items-center justify-center mt-1"
-                    style={{
-                      background: msg.role === "ai" ? "rgba(255,95,0,0.15)" : "rgba(255,212,0,0.15)",
-                      border: `1px solid ${msg.role === "ai" ? "rgba(255,95,0,0.3)" : "rgba(255,212,0,0.3)"}`
-                    }}
-                  >
-                    {msg.role === "ai" ? (
-                      <Bot size={16} style={{ color: "var(--primary)" }} />
-                    ) : (
-                      <User size={16} style={{ color: "var(--accent)" }} />
+                    key={msg.id}
+                    className={cn(
+                      "flex gap-3 max-w-[85%]",
+                      msg.role === "user" ? "self-end flex-row-reverse" : "self-start"
                     )}
-                  </div>
-                  <div
-                    className="px-5 py-3.5 rounded-2xl text-sm sm:text-base leading-relaxed"
-                    style={{
-                      background: "rgba(12, 10, 18, 0.6)",
-                      backdropFilter: "blur(12px)",
-                      color: "var(--foreground)",
-                      border: "1px solid rgba(255, 255, 255, 0.08)",
-                      borderTopLeftRadius: msg.role === "ai" ? "4px" : "1rem",
-                      borderTopRightRadius: msg.role === "user" ? "4px" : "1rem",
-                    }}
                   >
-                    {formatMessageContent(msg.content)}
+                    <div
+                      className="w-8 h-8 rounded-xl flex-shrink-0 flex items-center justify-center mt-1"
+                      style={{
+                        background: msg.role === "ai" ? "rgba(255,95,0,0.15)" : "rgba(255,212,0,0.15)",
+                        border: `1px solid ${msg.role === "ai" ? "rgba(255,95,0,0.3)" : "rgba(255,212,0,0.3)"}`
+                      }}
+                    >
+                      {msg.role === "ai" ? (
+                        <Bot size={16} style={{ color: "var(--primary)" }} />
+                      ) : (
+                        <User size={16} style={{ color: "var(--accent)" }} />
+                      )}
+                    </div>
+                    <div
+                      className="px-5 py-3.5 rounded-2xl text-sm sm:text-base leading-relaxed"
+                      style={{
+                        background: "rgba(12, 10, 18, 0.6)",
+                        backdropFilter: "blur(12px)",
+                        color: "var(--foreground)",
+                        border: "1px solid rgba(255, 255, 255, 0.08)",
+                        borderTopLeftRadius: msg.role === "ai" ? "4px" : "1rem",
+                        borderTopRightRadius: msg.role === "user" ? "4px" : "1rem",
+                      }}
+                    >
+                      {formatMessageContent(msg.content)}
+                    </div>
                   </div>
-                </div>
-              ))}
-              {isTyping && (
-                <div className="flex gap-3 max-w-[85%] self-start">
-                  <div
-                    className="w-8 h-8 rounded-xl flex-shrink-0 flex items-center justify-center mt-1"
-                    style={{
-                      background: "rgba(255,95,0,0.15)",
-                      border: "1px solid rgba(255,95,0,0.3)"
-                    }}
-                  >
-                    <Bot size={16} style={{ color: "var(--primary)" }} />
+                ))}
+                {isTyping && (
+                  <div className="flex gap-3 max-w-[85%] self-start">
+                    <div
+                      className="w-8 h-8 rounded-xl flex-shrink-0 flex items-center justify-center mt-1"
+                      style={{
+                        background: "rgba(255,95,0,0.15)",
+                        border: "1px solid rgba(255,95,0,0.3)"
+                      }}
+                    >
+                      <Bot size={16} style={{ color: "var(--primary)" }} />
+                    </div>
+                    <div
+                      className="px-5 py-2.5 rounded-2xl"
+                      style={{
+                        background: "rgba(12, 10, 18, 0.6)",
+                        backdropFilter: "blur(12px)",
+                        border: "1px solid rgba(255, 255, 255, 0.08)",
+                        borderTopLeftRadius: "4px",
+                      }}
+                    >
+                      <TypingIndicator />
+                    </div>
                   </div>
-                  <div
-                    className="px-5 py-2.5 rounded-2xl"
-                    style={{
-                      background: "rgba(12, 10, 18, 0.6)",
-                      backdropFilter: "blur(12px)",
-                      border: "1px solid rgba(255, 255, 255, 0.08)",
-                      borderTopLeftRadius: "4px",
-                    }}
-                  >
-                    <TypingIndicator />
-                  </div>
-                </div>
-              )}
+                )}
               </div>
             </div>
           )}
@@ -341,12 +340,12 @@ export default function HeroSection() {
 
               {/* Bottom Row of Input Box */}
               <div className="flex items-center justify-between mt-2">
-                <input 
-                  type="file" 
-                  ref={fileInputRef} 
+                <input
+                  type="file"
+                  ref={fileInputRef}
                   onChange={handleFileUpload}
-                  accept=".txt,.md,.csv" 
-                  className="hidden" 
+                  accept=".txt,.md,.csv"
+                  className="hidden"
                 />
                 <button
                   type="button"
