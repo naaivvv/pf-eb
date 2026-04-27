@@ -287,9 +287,9 @@ export default function HeroSection() {
                   </div>
                 </div>
               )}
+              </div>
             </div>
           )}
-
           {/* Main Input Box */}
           <div
             className="w-full relative group transition-all duration-300"
