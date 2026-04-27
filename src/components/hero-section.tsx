@@ -3,6 +3,7 @@ import ThermodynamicGrid from "@/components/ui/interactive-thermodynamic-grid";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Send, Sparkles, Bot, User, Paperclip, ArrowUp, CodeXml, Rocket, Layers, Palette, Monitor, FileUp, Image as ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { fetchAIResponse, type ChatMessage } from "@/lib/ai-service";
 
 interface Message {
   id: number;
@@ -34,15 +35,18 @@ export default function HeroSection() {
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
     }
   }, [messages, isTyping]);
 
-  const handleSend = (text: string = inputValue) => {
+  const handleSend = async (text: string = inputValue) => {
     if (!text.trim()) return;
 
     setHasInteracted(true);
@@ -51,21 +55,38 @@ export default function HeroSection() {
       role: "user",
       content: text.trim(),
     };
-    setMessages((prev) => [...prev, userMsg]);
+    
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
     setInputValue("");
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      // Map local messages to OpenRouter format
+      const apiMessages: ChatMessage[] = newMessages.map(msg => ({
+        role: msg.role === "ai" ? "assistant" : "user",
+        content: msg.content
+      }));
+
+      const responseText = await fetchAIResponse(apiMessages);
+      
       const aiMsg: Message = {
         id: Date.now() + 1,
         role: "ai",
-        content:
-          "Thanks for your question! This is a placeholder response. Once the RAG system is integrated, I'll be able to answer questions about Edwin's portfolio, skills, and projects using his actual documents and data.",
+        content: responseText,
       };
       setMessages((prev) => [...prev, aiMsg]);
+    } catch (error) {
+      console.error(error);
+      const errorMsg: Message = {
+        id: Date.now() + 1,
+        role: "ai",
+        content: "Oops! Something went wrong while connecting to my brain. Please try asking again later.",
+      };
+      setMessages((prev) => [...prev, errorMsg]);
+    } finally {
       setIsTyping(false);
-    }, 2000);
+    }
   };
 
   const suggestions = [
@@ -89,7 +110,7 @@ export default function HeroSection() {
 
       {/* Content Layer */}
       <div className="relative z-10 w-full px-4 sm:px-6 max-w-3xl mx-auto flex flex-col items-center mt-8 pointer-events-none transition-all duration-700">
-        
+
         {/* Header Area (Shrinks if interacted) */}
         <div className={cn(
           "flex flex-col items-center text-center transition-all duration-700",
@@ -97,10 +118,10 @@ export default function HeroSection() {
         )}>
           {/* Name (De-emphasized) */}
           <h1
-            className="font-[var(--font-display)] text-2xl sm:text-3xl font-bold tracking-widest mb-2 animate-fade-up opacity-0 stagger-1 uppercase"
+            className="font-[var(--font-display)] text-2xl sm:text-3xl font-bold tracking-widest mb-2 animate-fade-up opacity-0 stagger-1"
             style={{ color: "var(--foreground)" }}
           >
-            Edwin <span style={{ color: "var(--primary)" }}>Bayog</span>
+            Edwin Jr. <span style={{ color: "var(--primary)" }}> P. Bayog</span>
           </h1>
 
           {/* Title */}
@@ -108,7 +129,7 @@ export default function HeroSection() {
             className="font-[var(--font-display)] text-xs sm:text-sm font-medium tracking-widest uppercase animate-fade-up opacity-0 stagger-2"
             style={{ color: "var(--muted-foreground)" }}
           >
-            Computer Engineer · Edge AI & Agentic Systems
+            Computer Engineer · IoT - Fullstack - AI & Agentic Systems
           </p>
         </div>
 
@@ -117,19 +138,13 @@ export default function HeroSection() {
           "w-full flex flex-col items-center pointer-events-auto transition-all duration-700",
           hasInteracted ? "h-[60vh]" : "animate-fade-up opacity-0 stagger-3"
         )}>
-          
-          {!hasInteracted && (
-            <div className="flex items-center justify-center gap-2 mb-6">
-              <Sparkles size={20} style={{ color: "var(--accent)" }} />
-              <span className="text-base sm:text-lg font-medium tracking-wide" style={{ color: "var(--foreground)" }}>
-                Ask the AI Assistant
-              </span>
-            </div>
-          )}
 
           {/* Chat History Display */}
           {hasInteracted && (
-            <div className="w-full flex-1 overflow-y-auto mb-6 pr-2 space-y-6 scrollbar-thin flex flex-col">
+            <div 
+              ref={chatContainerRef} 
+              className="w-full flex-1 overflow-y-auto mb-6 pr-2 space-y-6 scrollbar-thin flex flex-col"
+            >
               {messages.map((msg) => (
                 <div
                   key={msg.id}
@@ -140,7 +155,7 @@ export default function HeroSection() {
                 >
                   <div
                     className="w-8 h-8 rounded-xl flex-shrink-0 flex items-center justify-center mt-1"
-                    style={{ 
+                    style={{
                       background: msg.role === "ai" ? "rgba(255,95,0,0.15)" : "rgba(255,212,0,0.15)",
                       border: `1px solid ${msg.role === "ai" ? "rgba(255,95,0,0.3)" : "rgba(255,212,0,0.3)"}`
                     }}
@@ -170,7 +185,7 @@ export default function HeroSection() {
                 <div className="flex gap-3 max-w-[85%] self-start">
                   <div
                     className="w-8 h-8 rounded-xl flex-shrink-0 flex items-center justify-center mt-1"
-                    style={{ 
+                    style={{
                       background: "rgba(255,95,0,0.15)",
                       border: "1px solid rgba(255,95,0,0.3)"
                     }}
@@ -190,23 +205,22 @@ export default function HeroSection() {
                   </div>
                 </div>
               )}
-              <div ref={messagesEndRef} />
             </div>
           )}
 
           {/* Main Input Box */}
-          <div 
+          <div
             className="w-full relative group transition-all duration-300"
             style={{
-               background: "rgba(12, 10, 18, 0.75)",
-               backdropFilter: "blur(24px)",
-               border: "1px solid rgba(255, 140, 0, 0.25)",
-               boxShadow: "0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 95, 0, 0.1)",
-               borderRadius: "1.5rem"
+              background: "rgba(12, 10, 18, 0.75)",
+              backdropFilter: "blur(24px)",
+              border: "1px solid rgba(255, 140, 0, 0.25)",
+              boxShadow: "0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 95, 0, 0.1)",
+              borderRadius: "1.5rem"
             }}
           >
-            <form 
-              className="relative flex flex-col p-4 sm:p-5 min-h-[140px]" 
+            <form
+              className="relative flex flex-col p-4 sm:p-5 min-h-[140px]"
               onSubmit={(e) => {
                 e.preventDefault();
                 handleSend(inputValue);
@@ -215,7 +229,7 @@ export default function HeroSection() {
               <textarea
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Type your request..."
+                placeholder="Ask about the projects I've brought to life..."
                 className="w-full bg-transparent border-none outline-none resize-none flex-1 text-sm sm:text-base placeholder:text-white/30"
                 style={{ color: "var(--foreground)" }}
                 onKeyDown={(e) => {
@@ -225,16 +239,16 @@ export default function HeroSection() {
                   }
                 }}
               />
-              
+
               {/* Bottom Row of Input Box */}
               <div className="flex items-center justify-between mt-2">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   className="p-2 rounded-xl text-white/40 hover:text-[var(--primary)] hover:bg-white/5 transition-colors"
                 >
                   <Paperclip size={18} />
                 </button>
-                
+
                 <Button
                   type="submit"
                   size="icon"
@@ -254,31 +268,32 @@ export default function HeroSection() {
           {/* Prompt Suggestions */}
           {!hasInteracted && (
             <div className="flex flex-wrap justify-center gap-3 mt-6 max-w-2xl">
-               {suggestions.map((suggestion, i) => {
-                  const Icon = suggestion.icon;
-                  return (
+              {suggestions.map((suggestion, i) => {
+                const Icon = suggestion.icon;
+                return (
                   <button
                     key={i}
                     onClick={() => handleSend(suggestion.text)}
                     className="flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm transition-all duration-300 hover:scale-105"
                     style={{
-                       background: "rgba(255, 255, 255, 0.02)",
-                       border: "1px solid rgba(255, 255, 255, 0.1)",
-                       color: "var(--foreground)"
+                      background: "rgba(255, 255, 255, 0.02)",
+                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                      color: "var(--foreground)"
                     }}
                     onMouseEnter={(e) => {
-                       e.currentTarget.style.borderColor = "var(--secondary)";
-                       e.currentTarget.style.background = "rgba(255, 140, 0, 0.05)";
+                      e.currentTarget.style.borderColor = "var(--secondary)";
+                      e.currentTarget.style.background = "rgba(255, 140, 0, 0.05)";
                     }}
                     onMouseLeave={(e) => {
-                       e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                       e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
+                      e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
+                      e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
                     }}
                   >
                     <Icon size={14} className="opacity-70" />
                     <span>{suggestion.text}</span>
                   </button>
-               )})}
+                )
+              })}
             </div>
           )}
         </div>
@@ -288,7 +303,7 @@ export default function HeroSection() {
       {/* Scroll indicator */}
       {!hasInteracted && (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-chevron-bounce cursor-pointer pointer-events-auto"
-             onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
+          onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
         >
           <ChevronDown size={32} style={{ color: "var(--muted-foreground)" }} />
         </div>
