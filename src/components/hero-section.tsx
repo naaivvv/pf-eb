@@ -155,7 +155,7 @@ export default function HeroSection() {
 
   const suggestions = [
     { icon: CodeXml, text: "Edge AI Skills" },
-    { icon: Rocket, text: "KidSentry Project" },
+    { icon: Rocket, text: "Projects" },
     { icon: Layers, text: "IoT Architectures" },
     { icon: Palette, text: "UI/UX Design" },
     { icon: User, text: "Resume Overview" },
