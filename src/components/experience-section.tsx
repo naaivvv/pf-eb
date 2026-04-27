@@ -10,7 +10,7 @@ const experiences = [
     highlights: [
       "Architecting comprehensive thesis systems for Master's degree clients",
       "IoT-Based Wireless Control System for Legacy Vehicles via Mobile App",
-      "Sugarcane Mill Gas Monitoring System with real-time sensor integration",
+      "Industrial Stack Gas Analyzer with real-time sensor integration",
       "Embedded systems design and AI-powered solution prototyping",
     ],
     tags: ["Embedded Systems", "AI/ML", "IoT", "R&D"],
@@ -62,9 +62,8 @@ export default function ExperienceSection() {
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
         <div
-          className={`text-center mb-16 transition-all duration-700 ${
-            isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-          }`}
+          className={`text-center mb-16 transition-all duration-700 ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
+            }`}
         >
           <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-bold tracking-wider mb-4">
             <span style={{ color: "var(--foreground)" }}>Work </span>
@@ -85,11 +84,10 @@ export default function ExperienceSection() {
             {experiences.map((exp, i) => (
               <div
                 key={i}
-                className={`relative pl-12 md:pl-20 transition-all duration-700 ${
-                  isInView
+                className={`relative pl-12 md:pl-20 transition-all duration-700 ${isInView
                     ? "animate-fade-up opacity-100"
                     : "opacity-0 translate-y-6"
-                }`}
+                  }`}
                 style={{ animationDelay: `${(i + 1) * 150}ms` }}
               >
                 {/* Timeline Dot */}

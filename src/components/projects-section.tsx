@@ -11,7 +11,7 @@ import {
 
 const GithubIcon = ({ size = 14 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
   </svg>
 );
 
@@ -48,7 +48,7 @@ const secondaryProjects = [
     icon: Car,
   },
   {
-    title: "Gas Monitoring System",
+    title: "Industrial Stack Gas Analyzer",
     description:
       "Sugarcane mill gas monitoring with real-time sensor data acquisition, threshold alerting, and historical data logging.",
     tags: ["IoT", "Sensors", "Data Analysis", "Safety"],
@@ -71,9 +71,8 @@ export default function ProjectsSection() {
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div
-          className={`text-center mb-16 transition-all duration-700 ${
-            isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-          }`}
+          className={`text-center mb-16 transition-all duration-700 ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
+            }`}
         >
           <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-bold tracking-wider mb-4">
             <span style={{ color: "var(--foreground)" }}>Featured </span>
@@ -84,9 +83,8 @@ export default function ProjectsSection() {
 
         {/* Flagship Project */}
         <div
-          className={`mb-12 transition-all duration-700 delay-100 ${
-            isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-          }`}
+          className={`mb-12 transition-all duration-700 delay-100 ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
+            }`}
         >
           <div className="glass rounded-2xl p-8 md:p-10 border border-[var(--primary)]/10 hover:border-[var(--primary)]/30 transition-all duration-500 hover:shadow-[0_0_40px_rgba(249,115,22,0.1)]">
             <div className="flex flex-col md:flex-row gap-8">
@@ -157,9 +155,8 @@ export default function ProjectsSection() {
           {secondaryProjects.map((project, i) => (
             <div
               key={i}
-              className={`glass rounded-2xl p-6 glass-hover transition-all duration-500 group ${
-                isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-              }`}
+              className={`glass rounded-2xl p-6 glass-hover transition-all duration-500 group ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
+                }`}
               style={{ animationDelay: `${(i + 2) * 150}ms` }}
             >
               <div

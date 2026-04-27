@@ -14,7 +14,7 @@ const skillDomains = [
     title: "AI / Machine Learning",
     icon: Brain,
     color: "var(--primary)",
-    skills: ["YOLO Object Detection", "TensorFlow", "OpenCV", "Edge AI", "Computer Vision", "LLM APIs"],
+    skills: ["YOLO", "TensorFlow", "OpenCV", "Edge AI", "Computer Vision", "LLM APIs"],
     gridClass: "md:col-span-2",
   },
   {
@@ -62,9 +62,8 @@ export default function SkillsSection() {
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div
-          className={`text-center mb-16 transition-all duration-700 ${
-            isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-          }`}
+          className={`text-center mb-16 transition-all duration-700 ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
+            }`}
         >
           <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-bold tracking-wider mb-4">
             <span style={{ color: "var(--foreground)" }}>Tech </span>
@@ -78,9 +77,8 @@ export default function SkillsSection() {
           {skillDomains.map((domain, i) => (
             <div
               key={domain.title}
-              className={`${domain.gridClass} glass rounded-2xl p-6 glass-hover transition-all duration-500 group ${
-                isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-              }`}
+              className={`${domain.gridClass} glass rounded-2xl p-6 glass-hover transition-all duration-500 group ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
+                }`}
               style={{ animationDelay: `${(i + 1) * 100}ms` }}
             >
               {/* Icon */}
@@ -116,9 +114,8 @@ export default function SkillsSection() {
 
         {/* Languages Row */}
         <div
-          className={`mt-8 glass rounded-2xl p-6 text-center transition-all duration-700 delay-500 ${
-            isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-          }`}
+          className={`mt-8 glass rounded-2xl p-6 text-center transition-all duration-700 delay-500 ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
+            }`}
         >
           <h3 className="font-[var(--font-display)] text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "var(--muted-foreground)" }}>
             Languages Spoken
