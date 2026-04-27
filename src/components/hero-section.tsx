@@ -11,6 +11,20 @@ interface Message {
   content: string;
 }
 
+function formatMessageContent(content: string) {
+  const parts = content.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return (
+        <strong key={i} className="font-semibold text-white drop-shadow-sm">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
+
 function TypingIndicator() {
   return (
     <div className="flex items-center gap-1.5 py-2">
@@ -177,7 +191,7 @@ export default function HeroSection() {
                       borderTopRightRadius: msg.role === "user" ? "4px" : "1rem",
                     }}
                   >
-                    {msg.content}
+                    {formatMessageContent(msg.content)}
                   </div>
                 </div>
               ))}
