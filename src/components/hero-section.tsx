@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import ThermodynamicGrid from "@/components/ui/interactive-thermodynamic-grid";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Bot, User, Paperclip, ArrowUp, CodeXml, Rocket, Layers, Palette, Monitor, FileUp, Image as ImageIcon, X } from "lucide-react";
+import { ChevronDown, Bot, User, Paperclip, ArrowUp, CodeXml, Rocket, Layers, Palette, Monitor, FileUp, Image as ImageIcon, X, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fetchAIResponse, type ChatMessage } from "@/lib/ai-service";
 
@@ -205,10 +205,28 @@ export default function HeroSection() {
 
           {/* Chat History Display */}
           {hasInteracted && (
-            <div 
-              ref={chatContainerRef} 
-              className="w-full flex-1 overflow-y-auto mb-6 pr-2 space-y-6 scrollbar-thin flex flex-col"
-            >
+            <div className="w-full flex-1 flex flex-col mb-6 min-h-0">
+              <div className="flex justify-between items-center mb-4 px-2">
+                <span className="text-xs font-medium text-white/40 uppercase tracking-wider">Conversation</span>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => {
+                    setMessages([]);
+                    setHasInteracted(false);
+                    setInputValue("");
+                    setAttachedFile(null);
+                  }}
+                  className="h-8 text-white/50 hover:text-white hover:bg-white/10 rounded-lg text-xs"
+                >
+                  <RotateCcw size={14} className="mr-1.5" />
+                  New Chat
+                </Button>
+              </div>
+              <div 
+                ref={chatContainerRef} 
+                className="w-full flex-1 overflow-y-auto pr-2 space-y-6 scrollbar-thin flex flex-col"
+              >
               {messages.map((msg) => (
                 <div
                   key={msg.id}
@@ -268,7 +286,7 @@ export default function HeroSection() {
                     <TypingIndicator />
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           )}
 
