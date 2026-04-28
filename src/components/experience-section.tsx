@@ -4,6 +4,18 @@ import { Briefcase } from "lucide-react";
 
 const experiences = [
   {
+    period: "Apr 2026 – Jun 2026",
+    role: "AI/IoT Engineering Intern",
+    company: "Clever Minds Digital Solutions",
+    highlights: [
+      "Developed AI-driven IoT solutions and automation workflows",
+      "Integrated agentic AI tools for intelligent system prototyping",
+      "Collaborated on edge computing deployments and smart device integrations",
+    ],
+    tags: ["AI/IoT", "Edge Computing", "Agentic AI", "Automation"],
+    accentColor: "var(--primary)",
+  },
+  {
     period: "Oct 2024 – Present",
     role: "Freelance Technical Consultant",
     company: "R&D — Independent",
@@ -14,7 +26,7 @@ const experiences = [
       "Embedded systems design and AI-powered solution prototyping",
     ],
     tags: ["Embedded Systems", "AI/ML", "IoT", "R&D"],
-    accentColor: "var(--primary)",
+    accentColor: "var(--secondary)",
   },
   {
     period: "Jul 2024 – Sep 2024",
