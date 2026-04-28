@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import ThermodynamicGrid from "@/components/ui/interactive-thermodynamic-grid";
+import { GenerativeArtScene } from "@/components/ui/anomalous-matter";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Bot, User, Paperclip, ArrowUp, CodeXml, Rocket, Layers, Palette, Monitor, FileUp, Image as ImageIcon, X, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { fetchAIResponse, type ChatMessage } from "@/lib/ai-service";
 
 interface Message {
@@ -25,20 +27,12 @@ function formatMessageContent(content: string) {
     }
   }
 
-  const parts = mainContent.split(/(\*\*.*?\*\*)/g);
   return (
     <div className="flex flex-col gap-2">
-      <div>
-        {parts.map((part, i) => {
-          if (part.startsWith('**') && part.endsWith('**')) {
-            return (
-              <strong key={i} className="font-semibold text-white drop-shadow-sm">
-                {part.slice(2, -2)}
-              </strong>
-            );
-          }
-          return <span key={i}>{part}</span>;
-        })}
+      <div className="chat-markdown">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {mainContent}
+        </ReactMarkdown>
       </div>
       {attachedFileName && (
         <div className="flex items-center gap-2 mt-1 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 w-fit">
@@ -165,12 +159,10 @@ export default function HeroSection() {
   ];
 
   return (
-    <section className="relative w-full min-h-dvh flex flex-col items-center justify-center overflow-hidden">
-      {/* Interactive Background */}
-      <ThermodynamicGrid resolution={12} coolingFactor={0.96} />
+    <section className="relative w-full min-h-dvh flex flex-col items-center justify-center overflow-hidden bg-transparent">
+      {/* 3D Anomalous Matter — hero-only */}
+      <GenerativeArtScene className="z-0 mix-blend-screen opacity-70" />
 
-      {/* Gradient overlays for depth */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#0a0a0f]/70 via-[#0a0a0f]/40 to-[#0a0a0f]/90 pointer-events-none" />
 
       {/* Content Layer */}
       <div className="relative z-10 w-full px-4 sm:px-6 max-w-3xl mx-auto flex flex-col items-center mt-8 pointer-events-none transition-all duration-700">

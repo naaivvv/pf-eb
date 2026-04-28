@@ -29,8 +29,9 @@ export default function AboutSection() {
   const { ref, isInView } = useInView();
 
   return (
-    <section id="about" className="section-padding grid-pattern" ref={ref}>
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="relative w-full min-h-screen overflow-hidden bg-transparent" ref={ref}>
+      <div className="relative z-10 max-w-6xl mx-auto section-padding pointer-events-none">
+        <div className="pointer-events-auto">
         {/* Section Header */}
         <div
           className={`text-center mb-16 transition-all duration-700 ${
@@ -135,6 +136,7 @@ export default function AboutSection() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </section>

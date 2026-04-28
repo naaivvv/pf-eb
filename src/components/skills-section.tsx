@@ -58,8 +58,9 @@ export default function SkillsSection() {
   const { ref, isInView } = useInView();
 
   return (
-    <section id="skills" className="section-padding" ref={ref}>
-      <div className="max-w-6xl mx-auto">
+    <section id="skills" className="relative w-full min-h-screen overflow-hidden bg-transparent" ref={ref}>
+      <div className="relative z-10 max-w-6xl mx-auto section-padding pointer-events-none">
+        <div className="pointer-events-auto">
         {/* Section Header */}
         <div
           className={`text-center mb-16 transition-all duration-700 ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
@@ -137,6 +138,7 @@ export default function SkillsSection() {
               </div>
             ))}
           </div>
+        </div>
         </div>
       </div>
     </section>

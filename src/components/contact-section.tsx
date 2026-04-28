@@ -53,8 +53,9 @@ export default function ContactSection() {
   const { ref, isInView } = useInView();
 
   return (
-    <section id="contact" className="section-padding grid-pattern" ref={ref}>
-      <div className="max-w-3xl mx-auto text-center">
+    <section id="contact" className="relative w-full min-h-screen overflow-hidden bg-transparent" ref={ref}>
+      <div className="relative z-10 max-w-3xl mx-auto text-center section-padding pointer-events-none">
+        <div className="pointer-events-auto">
         {/* Header */}
         <div
           className={`mb-12 transition-all duration-700 ${
@@ -122,6 +123,7 @@ export default function ContactSection() {
           <p className="text-xs" style={{ color: "var(--muted-foreground)" }}>
             © {new Date().getFullYear()} Edwin Jr. P. Bayog · Crafted with React, TypeScript & Tailwind CSS
           </p>
+        </div>
         </div>
       </div>
     </section>

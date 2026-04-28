@@ -83,7 +83,7 @@ const ThermodynamicGrid = ({
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
+      const rect = canvas.getBoundingClientRect();
       mouse.x = e.clientX - rect.left;
       mouse.y = e.clientY - rect.top;
       mouse.active = true;
@@ -186,8 +186,8 @@ const ThermodynamicGrid = ({
     };
 
     window.addEventListener("resize", resize);
-    container.addEventListener("mousemove", handleMouseMove);
-    container.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseleave", handleMouseLeave);
     
     resize();
     update();
@@ -195,8 +195,8 @@ const ThermodynamicGrid = ({
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", resize);
-      container.removeEventListener("mousemove", handleMouseMove);
-      container.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [resolution, coolingFactor]);
 
