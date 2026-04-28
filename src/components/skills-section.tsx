@@ -14,7 +14,7 @@ const skillDomains = [
     title: "AI / Machine Learning",
     icon: Brain,
     color: "var(--primary)",
-    skills: ["YOLO", "TensorFlow", "OpenCV", "Edge AI", "Computer Vision", "LLM APIs", "ElevenLabs"],
+    skills: ["YOLO", "TensorFlow", "OpenCV", "Computer Vision", "LLM APIs", "ElevenLabs", "Edge AI"],
     gridClass: "md:col-span-2",
   },
   {
@@ -32,24 +32,24 @@ const skillDomains = [
     gridClass: "md:col-span-1",
   },
   {
-    title: "Web Development",
+    title: "Web & Mobile Development",
     icon: Globe,
     color: "var(--secondary)",
-    skills: ["React.js", "Next.js", "Node.js", "Laravel/PHP", "Tailwind CSS", "Shopify", "Flutter"],
+    skills: ["React.js", "Next.js", "Node.js", "Flutter", "Laravel/PHP", "Tailwind CSS", "Shopify"],
     gridClass: "md:col-span-1",
   },
   {
     title: "Data & Backend",
     icon: Database,
     color: "var(--primary)",
-    skills: ["Python", "SQL", "Git/GitHub", "Linux", "Docker", "Virtual Environments", "Power BI", "Render"],
+    skills: ["Python", "SQL", "Git/GitHub", "Linux", "Docker", "Power BI", "Render", "Virtual Environments"],
     gridClass: "md:col-span-1",
   },
   {
-    title: "Hardware & Embedded",
+    title: "Hardware & IoT",
     icon: Cpu,
     color: "var(--accent)",
-    skills: ["PCB Design", "Embedded Systems", "IoT Devices", "Raspberry Pi", "Microcontrollers", "Sensor Integration"],
+    skills: ["Raspberry Pi", "ESP32", "Microcontrollers", "IoT Devices", "Embedded Systems", "PCB Design", "Sensor Integration"],
     gridClass: "md:col-span-2",
   },
 ];

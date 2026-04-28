@@ -1,9 +1,9 @@
 export const CV_CONTEXT = `
 # EDWIN JR. P. BAYOG
-**Role**: Computer Engineer | Edge AI Specialist | IoT Architect | Fullstack Developer
+**Role**: Computer Engineer | AI & Agentic Developer | IoT Architect | Fullstack Developer
 
 ## PROFESSIONAL SUMMARY
-Edwin is a forward-thinking Computer Engineer with a profound passion for bridging the physical and digital worlds. He specializes in Edge AI, IoT systems, and building robust, scalable full-stack applications. Edwin is particularly skilled at taking heavy, complex machine learning models and optimizing them to run efficiently on resource-constrained edge hardware. He is highly passionate about Agentic AI development, Large Language Models (LLMs), and automating complex developer workflows.
+Edwin is a forward-thinking Computer Engineer with a profound passion for AI, agentic development, and building robust, scalable full-stack applications. He has strong expertise in Computer Vision, LLM-powered agents, and IoT systems. Edwin is also experienced in deploying optimized ML models on edge hardware, and is highly passionate about Agentic AI development, Large Language Models (LLMs), and automating complex developer workflows.
 
 ## TECHNICAL ARSENAL
 *   **Software Engineering & Web**: Python, TypeScript, C++, React, Next.js, Node.js, Vite, Tailwind CSS, shadcn/ui, Flutter.

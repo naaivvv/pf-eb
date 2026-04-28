@@ -148,7 +148,7 @@ export default function HeroSection() {
   };
 
   const suggestions = [
-    { icon: CodeXml, text: "Edge AI Skills" },
+    { icon: CodeXml, text: "AI Skills" },
     { icon: Rocket, text: "Projects" },
     { icon: Layers, text: "IoT Architectures" },
     { icon: Palette, text: "UI/UX Design" },
