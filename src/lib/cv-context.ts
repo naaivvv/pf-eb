@@ -12,21 +12,31 @@ Edwin is a forward-thinking Computer Engineer with a profound passion for AI, ag
 *   **Hardware & IoT Edge Computing**: Extensive hands-on experience with Raspberry Pi (specifically optimizing for RPi 5), ESP32, Arduino, and custom microcontroller integrations. Adept at interfacing complex sensor arrays with cloud backends.
 *   **Data & Infrastructure**: Docker containerization, Supabase, Firebase, Render cloud deployment, Power BI analytics & dashboards, RESTful API design, SaaS architecture.
 
-## FLAGSHIP PROJECTS & ACHIEVEMENTS
+## PROJECTS & ACHIEVEMENTS
+Edwin has built a diverse portfolio spanning AI/ML, IoT, web development, and data engineering. Below are selected highlights — he has additional projects not listed here.
 
-### 1. KidSentry (Edge AI Security System)
-*   **What it is**: A real-time intelligent monitoring system designed to enhance physical security.
-*   **Technical Feat**: Successfully optimized and deployed advanced object detection models directly onto a Raspberry Pi 5, ensuring low-latency edge processing without relying on heavy cloud compute.
-*   **Impact**: Features an automated alerting mechanism and a sleek tracking dashboard, proving his ability to build complete end-to-end IoT products from hardware to frontend.
+### AI & Computer Vision
+*   **KidSentry (2026, Thesis)**: Hybrid edge-cloud AI system for child safety. Real-time hazard detection using YOLO, TensorFlow, and OpenCV on Raspberry Pi with cloud fallback.
+*   **BrightEdge (2026)**: Eye disease pre-diagnosis system using EfficientNetV2-S to detect Cataract, Diabetic Retinopathy, and Glaucoma from fundus images with HIPAA-compliant data handling.
+*   **SNAID (2026)**: Snake identification system for Negros Occidental using a 2-stage YOLO + MobileNet pipeline on Raspberry Pi 5 with a React desktop interface.
+*   **Brain Tumor MRI Classification (2025)**: Deep learning model for classifying brain MRI scans to assist medical professionals.
+*   **Sentiment Analysis Pipeline (2025)**: NLP pipeline using Word2Vec + TensorFlow, Dockerized and deployed on HuggingFace via Flask.
+*   **Light Intensity & Pollution Predictor (2025)**: Deep learning regression model for environmental monitoring and pollution prediction.
 
-### 2. Automated License Plate Recognition (ALPR) System
-*   **What it is**: A highly accurate vehicle tracking system tailored specifically for Philippine license plate formats.
-*   **Technical Feat**: Engineered a complex, multi-stage AI pipeline. It involves advanced image preprocessing techniques (CLAHE), dynamic text extraction using Optical Character Recognition, and custom-trained neural networks. 
-*   **Impact**: Demonstrates his capability to fine-tune AI for specific, real-world constraints and visualize the data cleanly on a modern web interface.
+### IoT & Embedded Systems
+*   **IoT Vehicle Control (2025)**: Wireless control system retrofitting legacy vehicles with mobile app control, custom PCB design, and embedded microcontrollers.
+*   **Industrial Stack Gas Analyzer (2025)**: Real-time gas monitoring for sugarcane mills with distributed IoT sensors and automated alerting.
+*   **Smart 4-Gang Outlet System (2024)**: IoT smart outlet using PIC18F4550 + ESP32 with temperature monitoring and LCD interface.
 
-### 3. Agentic Portfolio Assistant (This Website)
-*   **What it is**: A modern, interactive portfolio that abandons traditional static layouts in favor of an AI-driven, conversational UX.
-*   **Technical Feat**: Integrates React, modern CSS aesthetics (Thermal Magma theme), and an LLM backend (OpenRouter) using in-context system prompting to create a personalized AI representative.
+### Full-Stack & Web Development
+*   **Agentic Portfolio Assistant (This Website)**: AI-driven conversational portfolio using React, Thermal Magma theme, and OpenRouter LLM backend.
+*   **CHMSU CIER Management System (2024)**: Administrative platform for CHMSU using Laravel and Livewire.
+*   **WireDesk CRM (2024)**: Customer relationship management system built with Laravel and Vite.
+*   **ACROSYS (2023)**: Event management app for large-scale crowd tracking and attendee syncing.
+*   **Happy-Teeth Dental Clinic (2023)**: Clinic management system with scheduling and record keeping.
+
+### Data Engineering
+*   **yieldWerx Analytics (2024)**: Data-driven reporting tools for yieldWerx Semiconductor — SQL optimization, analytical dashboards, and ETL pipelines.
 
 ## EXPERIENCE
 **AI/IoT Engineering Intern — Clever Minds Digital Solutions (Apr 2026 – Jun 2026)**

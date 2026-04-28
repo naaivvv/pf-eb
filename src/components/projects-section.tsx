@@ -1,190 +1,281 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { useInView } from "@/hooks/use-in-view";
-import {
-  Shield,
-  Eye,
-  Car,
-  Wind,
-  ExternalLink,
-} from "lucide-react";
+import { useState } from "react";
 
-const GithubIcon = ({ size = 14 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-  </svg>
-);
-
-const flagshipProject = {
-  title: "KidSentry",
-  subtitle: "Hybrid Edge-Cloud AI Solution",
-  description:
-    "A real-time hazard detection system designed for indoor environments to ensure child safety. Combines edge computing on Raspberry Pi with cloud-based ML inference for low-latency threat identification using computer vision and sensor fusion.",
-  tags: [
-    "YOLO",
-    "TensorFlow",
-    "Raspberry Pi",
-    "OpenCV",
-    "Edge AI",
-    "Cloud",
-    "Python",
-    "IoT",
-  ],
-  icon: Shield,
-  features: [
-    "Real-time object/hazard detection via YOLO models",
-    "Hybrid edge-cloud architecture for low-latency inference",
-    "Sensor fusion with camera + environmental sensors",
-    "Mobile alerting system for caregivers",
-  ],
+// --- PROJECT DATA ---
+export type Project = {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  techStack: string[];
+  category: string;
+  year: string;
+  image: string;
 };
 
-const secondaryProjects = [
+const projects: Project[] = [
   {
-    title: "IoT Wireless Vehicle Control",
-    description:
-      "Wireless control system for legacy vehicles via mobile application using IoT microcontrollers and Bluetooth/WiFi bridges.",
-    tags: ["IoT", "Embedded", "Mobile App", "Bluetooth"],
-    icon: Car,
+    id: "kidsentry",
+    title: "KidSentry",
+    subtitle: "Hybrid Edge-Cloud AI for Child Safety",
+    description: "Thesis project architecting a real-time hazard detection system for indoor child environments. Combines edge computing with cloud AI pipelines using YOLO object detection, TensorFlow models, and OpenCV — all running on embedded hardware to minimize latency for safety-critical alerts.",
+    techStack: ["Python", "YOLO", "TensorFlow", "OpenCV", "Embedded Systems", "Edge AI"],
+    category: "AI / ML",
+    year: "2026",
+    image: "/project-images/kidsentry.png",
   },
   {
+    id: "brightedge",
+    title: "BrightEdge",
+    subtitle: "Advanced Eye Disease Pre-Diagnosis System",
+    description: "A research project focusing on the development of a computer vision-based system for the pre-diagnosis of eye diseases using fundus images. It leverages deep learning (EfficientNetV2-S architecture) to detect Cataract, Diabetic Retinopathy (DR), and Glaucoma with clinical precision, while ensuring secure, HIPAA-compliant data handling.",
+    techStack: ["Computer Vision", "Deep Learning", "EfficientNetV2-S", "Healthcare AI"],
+    category: "AI / ML",
+    year: "2026",
+    image: "/project-images/brightedge.png",
+  },
+  {
+    id: "snaid",
+    title: "SNAID",
+    subtitle: "Snake Identification AI System",
+    description: "An embedded AI pipeline utilizing a Raspberry Pi 5 to process real-time imagery for deployment in Negros Occidental. Features a highly optimized 2-stage architecture leveraging YOLO for rapid object detection and MobileNet for precise species classification. Interface powered by a React desktop application with a robust Python backend.",
+    techStack: ["AI/ML", "Embedded Systems", "Python", "React", "Raspberry Pi"],
+    category: "AI / Embedded",
+    year: "2026",
+    image: "/project-images/snaid.png",
+  },
+  {
+    id: "iot-vehicle",
+    title: "IoT Vehicle Control",
+    subtitle: "Wireless Legacy Vehicle Modernization",
+    description: "Designed an IoT-based wireless control system that retrofits legacy vehicles with mobile app control. Engineered custom PCB boards, integrated embedded microcontrollers, and built a real-time communication layer between hardware and a mobile application.",
+    techStack: ["IoT", "PCB Design", "Embedded C", "Mobile App", "Wireless Protocols"],
+    category: "IoT / Hardware",
+    year: "2025",
+    image: "/project-images/technodrive.jpg",
+  },
+  {
+    id: "sugarcane-monitor",
     title: "Industrial Stack Gas Analyzer",
-    description:
-      "Sugarcane mill gas monitoring with real-time sensor data acquisition, threshold alerting, and historical data logging.",
-    tags: ["IoT", "Sensors", "Data Analysis", "Safety"],
-    icon: Wind,
+    subtitle: "Sugar Mill Monitoring System",
+    description: "Architected a real-time gas monitoring system for sugarcane mills using distributed IoT sensors. The system provides continuous environmental monitoring, automated alerts for hazardous gas levels, and a centralized dashboard for mill operators.",
+    techStack: ["IoT Sensors", "Embedded Systems", "Real-time Data", "Alert Systems"],
+    category: "IoT / Hardware",
+    year: "2025",
+    image: "/project-images/isga.jpg",
   },
   {
-    title: "ALPR Detection System",
-    description:
-      "Automatic License Plate Recognition using YOLO object detection and PaddleOCR, Dockerized for deployment on edge devices and cloud.",
-    tags: ["YOLO", "PaddleOCR", "Docker", "Computer Vision"],
-    icon: Eye,
+    id: "sentiment-analysis",
+    title: "Sentiment Analysis Pipeline",
+    subtitle: "NLP Classification Engine",
+    description: "An end-to-end natural language processing model leveraging Word2Vec (Google News embeddings) and TensorFlow for accurate sentiment classification. The application is containerized with Docker, deployed on HuggingFace, and exposed via a Flask backend running through ngrok for real-time web access.",
+    techStack: ["NLP", "TensorFlow", "Docker", "Flask"],
+    category: "AI / ML",
+    year: "2025",
+    image: "/project-images/sentiment.png",
+  },
+  {
+    id: "light-pollution",
+    title: "Light Intensity & Pollution Predictor",
+    subtitle: "Environmental Deep Learning Model",
+    description: "A deep learning regression model engineered to analyze environmental monitoring datasets. It accurately predicts light intensity (Is) and regional pollution levels, providing a scalable solution for ecological data tracking and analysis.",
+    techStack: ["Deep Learning", "Python", "TensorFlow"],
+    category: "AI / ML",
+    year: "2025",
+    image: "/project-images/light.png",
+  },
+  {
+    id: "brain-tumor",
+    title: "Brain Tumor MRI Classification",
+    subtitle: "Medical Imaging Diagnostics",
+    description: "A deep learning diagnostic tool built to analyze medical imaging. Engineered to classify MRI scans with high accuracy, assisting in rapid and reliable pre-diagnosis workflows for medical professionals.",
+    techStack: ["Computer Vision", "Deep Learning", "TensorFlow"],
+    category: "AI / Computer Vision",
+    year: "2025",
+    image: "/project-images/brain.png",
+  },
+  {
+    id: "smart-outlet",
+    title: "Smart 4-Gang Outlet System",
+    subtitle: "IoT Hardware Integration",
+    description: "A custom hardware-software integration utilizing a PIC18F4550 microcontroller and an ESP32 for Wi-Fi capabilities. Features real-time temperature monitoring and an integrated LCD interface for local control alongside remote IoT management.",
+    techStack: ["IoT", "Hardware", "PIC18F4550", "ESP32", "C++"],
+    category: "IoT / Hardware",
+    year: "2024",
+    image: "/project-images/4gos.png",
+  },
+  {
+    id: "yieldwerx",
+    title: "yieldWerx Analytics",
+    subtitle: "Semiconductor Data Intelligence",
+    description: "Built data-driven software solutions at yieldWerx Semiconductor to improve operational reporting accuracy. Optimized complex SQL queries to reduce latency, developed analytical dashboards, and ensured data integrity across large-scale semiconductor datasets.",
+    techStack: ["SQL", "Data Analysis", "Python", "Dashboard Dev", "ETL"],
+    category: "Data Engineering",
+    year: "2024",
+    image: "/project-images/yieldwerx.png",
+  },
+  {
+    id: "chmsu-cier",
+    title: "CHMSU CIER Management System",
+    subtitle: "Institutional Admin Platform",
+    description: "A comprehensive administrative platform built for the Carlos Hilado Memorial State University Center for Internationalization and External Relations. Engineered for dynamic, real-time institutional data handling and record management.",
+    techStack: ["Full-Stack", "Laravel", "Livewire"],
+    category: "Web Development",
+    year: "2024",
+    image: "/project-images/ciermis.png",
+  },
+  {
+    id: "wiredesk",
+    title: "WireDesk CRM",
+    subtitle: "Customer Relationship Management",
+    description: "A dedicated customer relationship management solution for a business specializing in laptop wireless accessories. Features a fast, responsive dashboard tailored for tracking customer care tickets and service solutions.",
+    techStack: ["Web Development", "Laravel", "Vite"],
+    category: "Web Development",
+    year: "2024",
+    image: "/project-images/wiredesk.jpeg",
+  },
+  {
+    id: "acrosys",
+    title: "ACROSYS",
+    subtitle: "Attendee and Crowd Syncing System",
+    description: "An event management application designed to handle large-scale crowd tracking and attendee synchronization in real-time, ensuring seamless event operations and data consistency.",
+    techStack: ["Web Application", "Laravel", "Livewire"],
+    category: "Web Development",
+    year: "2023",
+    image: "/project-images/acrosys.png",
+  },
+  {
+    id: "happy-teeth",
+    title: "Happy-Teeth Dental Clinic",
+    subtitle: "Clinic Management System",
+    description: "A foundational web-based clinic management system featuring patient scheduling, secure record keeping, and administrative dashboards engineered for cross-browser reliability.",
+    techStack: ["PHP", "Bootstrap", "MySQL"],
+    category: "Web Development",
+    year: "2023",
+    image: "/project-images/happy.png",
   },
 ];
 
+// Extract unique categories for filter
+const allCategories = ["All", ...Array.from(new Set(projects.map((p) => p.category)))];
+
 export default function ProjectsSection() {
   const { ref, isInView } = useInView();
+  const [activeFilter, setActiveFilter] = useState("All");
+
+  const filtered = activeFilter === "All" ? projects : projects.filter((p) => p.category === activeFilter);
 
   return (
     <section id="projects" className="relative w-full min-h-screen overflow-hidden bg-transparent" ref={ref}>
       <div className="relative z-10 max-w-6xl mx-auto section-padding pointer-events-none">
         <div className="pointer-events-auto">
+
         {/* Section Header */}
         <div
-          className={`text-center mb-16 transition-all duration-700 ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-            }`}
+          className={`text-center mb-12 transition-all duration-700 ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"}`}
         >
           <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-bold tracking-wider mb-4">
             <span style={{ color: "var(--foreground)" }}>Featured </span>
             <span style={{ color: "var(--primary)" }}>Projects</span>
           </h2>
-          <div className="w-20 h-0.5 mx-auto" style={{ background: "var(--primary)" }} />
+          <div className="w-20 h-0.5 mx-auto mb-4" style={{ background: "var(--primary)" }} />
+          <p className="text-sm max-w-xl mx-auto" style={{ color: "var(--muted-foreground)" }}>
+            A curated selection of my work spanning AI, IoT, web development, and data engineering.
+          </p>
         </div>
 
-        {/* Flagship Project */}
+        {/* Category Filter */}
         <div
-          className={`mb-12 transition-all duration-700 delay-100 ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-            }`}
+          className={`flex flex-wrap justify-center gap-2 mb-10 transition-all duration-700 delay-100 ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"}`}
         >
-          <div className="glass rounded-2xl p-8 md:p-10 border border-[var(--primary)]/10 hover:border-[var(--primary)]/30 transition-all duration-500 hover:shadow-[0_0_40px_rgba(249,115,22,0.1)]">
-            <div className="flex flex-col md:flex-row gap-8">
-              {/* Icon/Visual */}
-              <div className="flex-shrink-0 flex items-start justify-center">
-                <div
-                  className="w-20 h-20 rounded-2xl flex items-center justify-center"
-                  style={{
-                    background: "linear-gradient(135deg, rgba(249,115,22,0.15), rgba(168,85,247,0.15))",
-                    border: "1px solid rgba(249,115,22,0.2)",
-                  }}
-                >
-                  <flagshipProject.icon size={36} style={{ color: "var(--primary)" }} />
+          {allCategories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveFilter(cat)}
+              className="px-4 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-300 border cursor-pointer"
+              style={{
+                background: activeFilter === cat ? "var(--primary)" : "rgba(255,255,255,0.04)",
+                color: activeFilter === cat ? "#050505" : "var(--muted-foreground)",
+                borderColor: activeFilter === cat ? "var(--primary)" : "rgba(255,255,255,0.08)",
+              }}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Projects Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {filtered.map((project, i) => (
+            <div
+              key={project.id}
+              className={`group glass rounded-2xl overflow-hidden border border-white/[0.06] hover:border-[var(--primary)]/30 transition-all duration-500 hover:shadow-[0_0_30px_rgba(249,115,22,0.08)] ${
+                isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
+              }`}
+              style={{ animationDelay: `${(i % 6) * 100 + 150}ms` }}
+            >
+              {/* Image */}
+              <div className="relative w-full aspect-[16/10] overflow-hidden bg-black/30">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                {/* Year badge */}
+                <div className="absolute top-3 right-3">
+                  <span
+                    className="text-[10px] font-bold tracking-widest px-2.5 py-1 rounded-full backdrop-blur-md"
+                    style={{ background: "rgba(5,5,5,0.7)", color: "var(--primary)", border: "1px solid rgba(249,115,22,0.2)" }}
+                  >
+                    {project.year}
+                  </span>
+                </div>
+                {/* Category badge */}
+                <div className="absolute top-3 left-3">
+                  <span
+                    className="text-[10px] font-medium tracking-wide px-2.5 py-1 rounded-full backdrop-blur-md"
+                    style={{ background: "rgba(5,5,5,0.7)", color: "var(--muted-foreground)", border: "1px solid rgba(255,255,255,0.08)" }}
+                  >
+                    {project.category}
+                  </span>
                 </div>
               </div>
 
               {/* Content */}
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <Badge variant="default" className="text-xs uppercase tracking-wider">
-                    Thesis Project
-                  </Badge>
-                </div>
-                <h3 className="font-[var(--font-display)] text-2xl sm:text-3xl font-bold tracking-wider mb-1" style={{ color: "var(--foreground)" }}>
-                  {flagshipProject.title}
+              <div className="p-5">
+                <h3
+                  className="font-[var(--font-display)] text-base font-bold tracking-wide mb-0.5 group-hover:text-[var(--primary)] transition-colors duration-300"
+                  style={{ color: "var(--foreground)" }}
+                >
+                  {project.title}
                 </h3>
-                <p className="text-sm font-medium mb-4" style={{ color: "var(--secondary)" }}>
-                  {flagshipProject.subtitle}
+                <p className="text-xs font-medium mb-3" style={{ color: "var(--secondary)" }}>
+                  {project.subtitle}
                 </p>
-                <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--muted-foreground)" }}>
-                  {flagshipProject.description}
+                <p className="text-xs leading-relaxed mb-4 line-clamp-3" style={{ color: "var(--muted-foreground)" }}>
+                  {project.description}
                 </p>
 
-                {/* Features */}
-                <ul className="grid sm:grid-cols-2 gap-2 mb-6">
-                  {flagshipProject.features.map((feature, i) => (
-                    <li key={i} className="text-xs flex items-start gap-2" style={{ color: "var(--muted-foreground)" }}>
-                      <span className="mt-1.5 w-1 h-1 rounded-full shrink-0" style={{ background: "var(--primary)" }} />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {flagshipProject.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="text-xs">
+                {/* Tech Stack */}
+                <div className="flex flex-wrap gap-1.5">
+                  {project.techStack.slice(0, 4).map((tag) => (
+                    <Badge key={tag} variant="outline" className="text-[10px]">
                       {tag}
                     </Badge>
                   ))}
+                  {project.techStack.length > 4 && (
+                    <Badge variant="secondary" className="text-[10px]">
+                      +{project.techStack.length - 4}
+                    </Badge>
+                  )}
                 </div>
-
-                <div className="flex gap-3">
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <GithubIcon size={14} /> Source Code
-                  </Button>
-                  <Button variant="ghost" size="sm" className="gap-2">
-                    <ExternalLink size={14} /> Learn More
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Secondary Projects Grid */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {secondaryProjects.map((project, i) => (
-            <div
-              key={i}
-              className={`glass rounded-2xl p-6 glass-hover transition-all duration-500 group ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-                }`}
-              style={{ animationDelay: `${(i + 2) * 150}ms` }}
-            >
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300"
-                style={{
-                  background: "rgba(168,85,247,0.08)",
-                  border: "1px solid rgba(168,85,247,0.15)",
-                }}
-              >
-                <project.icon size={22} style={{ color: "var(--secondary)" }} />
-              </div>
-              <h4 className="font-[var(--font-display)] text-base font-semibold tracking-wide mb-2" style={{ color: "var(--foreground)" }}>
-                {project.title}
-              </h4>
-              <p className="text-xs leading-relaxed mb-4" style={{ color: "var(--muted-foreground)" }}>
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {project.tags.map((tag) => (
-                  <Badge key={tag} variant="outline" className="text-[10px]">
-                    {tag}
-                  </Badge>
-                ))}
               </div>
             </div>
           ))}
         </div>
+
         </div>
       </div>
     </section>
