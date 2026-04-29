@@ -8,6 +8,7 @@ import ContactSection from "@/components/contact-section";
 import ThermodynamicGrid from "@/components/ui/interactive-thermodynamic-grid";
 import { useTheme } from "@/hooks/use-theme";
 import { ReactLenis } from "lenis/react";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function App() {
   const { theme, toggleTheme, isDark } = useTheme();
@@ -43,6 +44,7 @@ export default function App() {
           <SkillsSection isDark={isDark} />
           <ContactSection />
         </main>
+        <Analytics />
       </div>
     </ReactLenis>
   );
