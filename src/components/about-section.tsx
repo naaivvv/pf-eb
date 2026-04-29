@@ -32,7 +32,7 @@ const certifications: Certification[] = [
   // Awards & Honors
   { title: "2× DepEd Technolympics Champion", issuer: "DepEd", date: "", variant: "default" },
   { title: "Class Valedictorian (JHS & SHS)", issuer: "Academic", date: "", variant: "default" },
-  { title: "DOST-SEI Merit Scholar", issuer: "DOST", date: "", variant: "default" },
+  { title: "DOST-SEI JLSS Scholar", issuer: "DOST", date: "", variant: "default" },
 
   // Language & Proficiency
   { title: "HSK Level 4 — Chinese Proficiency", issuer: "CLEC", date: "Dec 2021", variant: "secondary" },
