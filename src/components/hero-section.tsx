@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { GenerativeArtScene } from "@/components/ui/anomalous-matter";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Bot, User, Paperclip, ArrowUp, CodeXml, Rocket, Layers, Palette, Monitor, FileUp, Image as ImageIcon, X, RotateCcw } from "lucide-react";
+import { ChevronDown, Bot, User, Paperclip, ArrowUp, CodeXml, Rocket, FileUp, Image as ImageIcon, X, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
