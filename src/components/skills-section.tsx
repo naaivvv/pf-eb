@@ -1,4 +1,7 @@
 import { useInView } from "@/hooks/use-in-view";
+import antigravityIcon from "@/assets/icons/antigravity.svg";
+import lovableIcon from "@/assets/icons/lovable.svg";
+import powerbiIcon from "@/assets/icons/powerbi.svg";
 
 interface SkillsSectionProps {
   isDark: boolean;
@@ -6,7 +9,7 @@ interface SkillsSectionProps {
 
 // --- SKILL DATA ---
 // `cdn` = Simple Icons slug (fetched from CDN)
-// `local` = path in public/icons/ (for brands not on Simple Icons)
+// `local` = path to imported asset (for brands not on Simple Icons)
 // `color` = official brand hex color for the icon
 type Skill = {
   name: string;
@@ -14,7 +17,7 @@ type Skill = {
 } & ({ cdn: string; local?: never } | { local: string; cdn?: never });
 
 const allSkills: Skill[] = [
-  { name: "Antigravity", local: "/icons/antigravity.svg", color: "#4285F4" },
+  { name: "Antigravity", local: antigravityIcon, color: "#4285F4" },
   { name: "Arduino", cdn: "arduino", color: "#00878F" },
   { name: "C++", cdn: "cplusplus", color: "#00599C" },
   { name: "Claude Code", cdn: "claude", color: "#D97757" },
@@ -31,14 +34,14 @@ const allSkills: Skill[] = [
   { name: "LangChain", cdn: "langchain", color: "#FFFFFF" },
   { name: "Laravel", cdn: "laravel", color: "#FF2D20" },
   { name: "Linux", cdn: "linux", color: "#FCC624" },
-  { name: "Lovable", local: "/icons/lovable.svg", color: "#FF5757" },
+  { name: "Lovable", local: lovableIcon, color: "#FF5757" },
   { name: "MySQL", cdn: "mysql", color: "#4479A1" },
   { name: "N8n", cdn: "n8n", color: "#EA4B71" },
   { name: "Next.js", cdn: "nextdotjs", color: "#FFFFFF" },
   { name: "Node.js", cdn: "nodedotjs", color: "#5FA04E" },
   { name: "OpenCV", cdn: "opencv", color: "#5C3EE8" },
   { name: "PHP", cdn: "php", color: "#777BB4" },
-  { name: "Power BI", local: "/icons/powerbi.svg", color: "#F2C811" },
+  { name: "Power BI", local: powerbiIcon, color: "#F2C811" },
   { name: "Python", cdn: "python", color: "#3776AB" },
   { name: "PyTorch", cdn: "pytorch", color: "#EE4C2C" },
   { name: "Raspberry Pi", cdn: "raspberrypi", color: "#A22846" },

@@ -14,6 +14,8 @@ export type Project = {
   image: string;
 };
 
+const getProjectImage = (name: string) => new URL(`../assets/projects/${name}`, import.meta.url).href;
+
 const projects: Project[] = [
   {
     id: "kidsentry",
@@ -23,7 +25,7 @@ const projects: Project[] = [
     techStack: ["Python", "YOLO", "TensorFlow", "OpenCV", "Raspberry Pi", "Edge AI"],
     category: "AI / ML",
     year: "2026",
-    image: "/project-images/kidsentry.png",
+    image: getProjectImage("kidsentry.png"),
   },
   {
     id: "brightedge",
@@ -33,7 +35,7 @@ const projects: Project[] = [
     techStack: ["Computer Vision", "Deep Learning", "EfficientNetV2-S", "Python", "Healthcare AI"],
     category: "AI / ML",
     year: "2026",
-    image: "/project-images/brightedge.png",
+    image: getProjectImage("brightedge.png"),
   },
   {
     id: "snaid",
@@ -43,7 +45,7 @@ const projects: Project[] = [
     techStack: ["YOLO", "MobileNet", "Python", "React", "Raspberry Pi"],
     category: "AI / Embedded",
     year: "2026",
-    image: "/project-images/snaid.png",
+    image: getProjectImage("snaid.png"),
   },
   {
     id: "iot-vehicle",
@@ -53,7 +55,7 @@ const projects: Project[] = [
     techStack: ["IoT", "PCB Design", "Embedded C", "Mobile App", "Wireless Protocols"],
     category: "IoT / Hardware",
     year: "2025",
-    image: "/project-images/technodrive.jpg",
+    image: getProjectImage("technodrive.jpg"),
   },
   {
     id: "sugarcane-monitor",
@@ -63,7 +65,7 @@ const projects: Project[] = [
     techStack: ["IoT Sensors", "Embedded Systems", "Real-time Data", "Alert Systems"],
     category: "IoT / Hardware",
     year: "2025",
-    image: "/project-images/isga.jpg",
+    image: getProjectImage("isga.jpg"),
   },
   {
     id: "sentiment-analysis",
@@ -73,7 +75,7 @@ const projects: Project[] = [
     techStack: ["NLP", "Word2Vec", "TensorFlow", "Docker", "Flask"],
     category: "AI / ML",
     year: "2025",
-    image: "/project-images/sentiment.png",
+    image: getProjectImage("sentiment.png"),
   },
   {
     id: "light-pollution",
@@ -83,7 +85,7 @@ const projects: Project[] = [
     techStack: ["Deep Learning", "Python", "TensorFlow"],
     category: "AI / ML",
     year: "2025",
-    image: "/project-images/light.png",
+    image: getProjectImage("light.png"),
   },
   {
     id: "brain-tumor",
@@ -93,7 +95,7 @@ const projects: Project[] = [
     techStack: ["Computer Vision", "Deep Learning", "TensorFlow", "Python"],
     category: "AI / Computer Vision",
     year: "2025",
-    image: "/project-images/brain.png",
+    image: getProjectImage("brain.png"),
   },
   {
     id: "smart-outlet",
@@ -103,7 +105,7 @@ const projects: Project[] = [
     techStack: ["IoT", "Hardware", "PIC18F4550", "ESP32", "C++"],
     category: "IoT / Hardware",
     year: "2024",
-    image: "/project-images/4gos.png",
+    image: getProjectImage("4gos.png"),
   },
   {
     id: "yieldwerx",
@@ -113,7 +115,7 @@ const projects: Project[] = [
     techStack: ["SQL", "Python", "Data Analysis", "ETL", "Power BI"],
     category: "Data Engineering",
     year: "2024",
-    image: "/project-images/yieldwerx.png",
+    image: getProjectImage("yieldwerx.png"),
   },
   {
     id: "chmsu-cier",
@@ -123,7 +125,7 @@ const projects: Project[] = [
     techStack: ["Laravel", "Livewire", "PHP", "Full-Stack"],
     category: "Web Development",
     year: "2024",
-    image: "/project-images/ciermis.png",
+    image: getProjectImage("ciermis.png"),
   },
   {
     id: "wiredesk",
@@ -133,7 +135,7 @@ const projects: Project[] = [
     techStack: ["Laravel", "Vite", "PHP"],
     category: "Web Development",
     year: "2024",
-    image: "/project-images/wiredesk.jpeg",
+    image: getProjectImage("wiredesk.jpeg"),
   },
   {
     id: "acrosys",
@@ -143,7 +145,7 @@ const projects: Project[] = [
     techStack: ["Laravel", "Livewire", "PHP"],
     category: "Web Development",
     year: "2023",
-    image: "/project-images/acrosys.png",
+    image: getProjectImage("acrosys.png"),
   },
   {
     id: "happy-teeth",
@@ -153,7 +155,7 @@ const projects: Project[] = [
     techStack: ["PHP", "Bootstrap", "MySQL"],
     category: "Web Development",
     year: "2023",
-    image: "/project-images/happy.png",
+    image: getProjectImage("happy.png"),
   },
 ];
 
