@@ -14,54 +14,43 @@ type Skill = {
 } & ({ cdn: string; local?: never } | { local: string; cdn?: never });
 
 const allSkills: Skill[] = [
-  // AI / ML
-  { name: "TensorFlow", cdn: "tensorflow", color: "#FF6F00" },
-  { name: "OpenCV", cdn: "opencv", color: "#5C3EE8" },
-  { name: "PyTorch", cdn: "pytorch", color: "#EE4C2C" },
-  { name: "LangChain", cdn: "langchain", color: "#FFFFFF" },
-  { name: "CrewAI", cdn: "crewai", color: "#FF4A00" },
-  { name: "ElevenLabs", cdn: "elevenlabs", color: "#FFFFFF" },
-
-  // Web & Mobile
-  { name: "React", cdn: "react", color: "#61DAFB" },
-  { name: "Next.js", cdn: "nextdotjs", color: "#FFFFFF" },
-  { name: "Node.js", cdn: "nodedotjs", color: "#5FA04E" },
-  { name: "Flutter", cdn: "flutter", color: "#02569B" },
-  { name: "Laravel", cdn: "laravel", color: "#FF2D20" },
-  { name: "Tailwind CSS", cdn: "tailwindcss", color: "#06B6D4" },
-  { name: "Vite", cdn: "vite", color: "#646CFF" },
-
-  // Languages & Backend
-  { name: "Python", cdn: "python", color: "#3776AB" },
-  { name: "TypeScript", cdn: "typescript", color: "#3178C6" },
+  { name: "Antigravity", local: "/icons/antigravity.svg", color: "#4285F4" },
+  { name: "Arduino", cdn: "arduino", color: "#00878F" },
   { name: "C++", cdn: "cplusplus", color: "#00599C" },
-  { name: "PHP", cdn: "php", color: "#777BB4" },
-  { name: "MySQL", cdn: "mysql", color: "#4479A1" },
+  { name: "Claude Code", cdn: "claude", color: "#D97757" },
+  { name: "CrewAI", cdn: "crewai", color: "#FF4A00" },
   { name: "Docker", cdn: "docker", color: "#2496ED" },
+  { name: "ElevenLabs", cdn: "elevenlabs", color: "#FFFFFF" },
+  { name: "ESP32", cdn: "espressif", color: "#E7352C" },
+  { name: "Figma", cdn: "figma", color: "#F24E1E" },
+  { name: "Firebase", cdn: "firebase", color: "#DD2C00" },
+  { name: "Flutter", cdn: "flutter", color: "#02569B" },
   { name: "Git", cdn: "git", color: "#F05032" },
   { name: "GitHub", cdn: "github", color: "#FFFFFF" },
-  { name: "Linux", cdn: "linux", color: "#FCC624" },
-  { name: "Firebase", cdn: "firebase", color: "#DD2C00" },
-  { name: "Supabase", cdn: "supabase", color: "#3FCF8E" },
-
-  // Hardware & IoT
-  { name: "Raspberry Pi", cdn: "raspberrypi", color: "#A22846" },
-  { name: "Arduino", cdn: "arduino", color: "#00878F" },
-  { name: "ESP32", cdn: "espressif", color: "#E7352C" },
-
-  // Platforms & Tools
-  { name: "Figma", cdn: "figma", color: "#F24E1E" },
-  { name: "Vercel", cdn: "vercel", color: "#FFFFFF" },
-  { name: "Shopify", cdn: "shopify", color: "#7AB55C" },
-  { name: "N8n", cdn: "n8n", color: "#EA4B71" },
-  { name: "Render", cdn: "render", color: "#FFFFFF" },
-  { name: "Claude Code", cdn: "claude", color: "#D97757" },
-
-  // Local fallbacks (not on Simple Icons)
-  { name: "Power BI", local: "/icons/powerbi.svg", color: "#F2C811" },
-  { name: "Lovable", local: "/icons/lovable.svg", color: "#FF5757" },
-  { name: "Antigravity", local: "/icons/antigravity.svg", color: "#4285F4" },
   { name: "Google Stitch", cdn: "google", color: "#4285F4" },
+  { name: "LangChain", cdn: "langchain", color: "#FFFFFF" },
+  { name: "Laravel", cdn: "laravel", color: "#FF2D20" },
+  { name: "Linux", cdn: "linux", color: "#FCC624" },
+  { name: "Lovable", local: "/icons/lovable.svg", color: "#FF5757" },
+  { name: "MySQL", cdn: "mysql", color: "#4479A1" },
+  { name: "N8n", cdn: "n8n", color: "#EA4B71" },
+  { name: "Next.js", cdn: "nextdotjs", color: "#FFFFFF" },
+  { name: "Node.js", cdn: "nodedotjs", color: "#5FA04E" },
+  { name: "OpenCV", cdn: "opencv", color: "#5C3EE8" },
+  { name: "PHP", cdn: "php", color: "#777BB4" },
+  { name: "Power BI", local: "/icons/powerbi.svg", color: "#F2C811" },
+  { name: "Python", cdn: "python", color: "#3776AB" },
+  { name: "PyTorch", cdn: "pytorch", color: "#EE4C2C" },
+  { name: "Raspberry Pi", cdn: "raspberrypi", color: "#A22846" },
+  { name: "React", cdn: "react", color: "#61DAFB" },
+  { name: "Render", cdn: "render", color: "#FFFFFF" },
+  { name: "Shopify", cdn: "shopify", color: "#7AB55C" },
+  { name: "Supabase", cdn: "supabase", color: "#3FCF8E" },
+  { name: "Tailwind CSS", cdn: "tailwindcss", color: "#06B6D4" },
+  { name: "TensorFlow", cdn: "tensorflow", color: "#FF6F00" },
+  { name: "TypeScript", cdn: "typescript", color: "#3178C6" },
+  { name: "Vercel", cdn: "vercel", color: "#FFFFFF" },
+  { name: "Vite", cdn: "vite", color: "#646CFF" },
 ];
 
 const SIMPLE_ICONS_CDN = "https://cdn.simpleicons.org";
