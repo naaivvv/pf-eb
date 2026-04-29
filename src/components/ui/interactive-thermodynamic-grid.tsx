@@ -14,6 +14,33 @@ interface ThermodynamicGridProps extends React.HTMLAttributes<HTMLDivElement> {
   coolingFactor?: number;
 }
 
+// Color palettes for each theme
+const DARK_PALETTE = {
+  base: { r: 5, g: 5, b: 5 },
+  bgHex: "#050505",
+  coldDot: "#18181b",
+  stops: [
+    { t: 0.0, r: 5, g: 5, b: 5 },
+    { t: 0.25, r: 255, g: 95, b: 0 },
+    { t: 0.5, r: 255, g: 140, b: 0 },
+    { t: 0.75, r: 255, g: 195, b: 0 },
+    { t: 1.0, r: 255, g: 212, b: 0 },
+  ],
+};
+
+const LIGHT_PALETTE = {
+  base: { r: 236, g: 232, b: 226 },
+  bgHex: "#ece8e2",
+  coldDot: "#d4cfc8",
+  stops: [
+    { t: 0.0, r: 236, g: 232, b: 226 },
+    { t: 0.25, r: 200, g: 80, b: 0 },
+    { t: 0.5, r: 220, g: 110, b: 0 },
+    { t: 0.75, r: 240, g: 160, b: 0 },
+    { t: 1.0, r: 255, g: 190, b: 0 },
+  ],
+};
+
 const ThermodynamicGrid = ({
   className,
   resolution = 25,
@@ -23,6 +50,7 @@ const ThermodynamicGrid = ({
 }: ThermodynamicGridProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const paletteRef = useRef(DARK_PALETTE);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -31,6 +59,20 @@ const ThermodynamicGrid = ({
 
     const ctx = canvas.getContext("2d", { alpha: false }); // No transparency for perf
     if (!ctx) return;
+
+    // Read initial theme
+    const readTheme = () => {
+      const theme = document.documentElement.getAttribute("data-theme");
+      paletteRef.current = theme === "light" ? LIGHT_PALETTE : DARK_PALETTE;
+    };
+    readTheme();
+
+    // Watch for theme changes via MutationObserver
+    const observer = new MutationObserver(() => readTheme());
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
 
     // Simulation State
     let grid: Float32Array; // Temperature map (0.0 - 1.0)
@@ -43,14 +85,7 @@ const ThermodynamicGrid = ({
     const mouse = { x: -1000, y: -1000, prevX: -1000, prevY: -1000, active: false };
 
     const getThermalColor = (t: number) => {
-      // Color Palette: #050505 -> #FF5F00 -> #FF8C00 -> #FFC300 -> #FFD400
-      const stops = [
-        { t: 0.0, r: 5, g: 5, b: 5 },
-        { t: 0.25, r: 255, g: 95, b: 0 },
-        { t: 0.5, r: 255, g: 140, b: 0 },
-        { t: 0.75, r: 255, g: 195, b: 0 },
-        { t: 1.0, r: 255, g: 212, b: 0 },
-      ];
+      const stops = paletteRef.current.stops;
       
       if (t <= 0) return `rgb(${stops[0].r}, ${stops[0].g}, ${stops[0].b})`;
       if (t >= 1) return `rgb(${stops[4].r}, ${stops[4].g}, ${stops[4].b})`;
@@ -96,6 +131,8 @@ const ThermodynamicGrid = ({
     // --- PHYSICS LOOP ---
     let animationId: number;
     const update = () => {
+      const palette = paletteRef.current;
+
       // 1. INJECT HEAT (Brush)
       if (mouse.active) {
         // Bresenham-like line for fast mouse movement preventing gaps
@@ -136,8 +173,7 @@ const ThermodynamicGrid = ({
       mouse.prevY = mouse.y;
 
       // 2. RENDER & DIFFUSE
-      // We clear with a very dark color instead of transparent to support the "Additive" look
-      ctx.fillStyle = "#050505";
+      ctx.fillStyle = palette.bgHex;
       ctx.fillRect(0, 0, width, height);
 
       for (let r = 0; r < rows; r++) {
@@ -175,7 +211,7 @@ const ThermodynamicGrid = ({
              if (c % 2 === 0 && r % 2 === 0) {
                  const x = c * resolution;
                  const y = r * resolution;
-                 ctx.fillStyle = "#18181b"; // Zinc-900
+                 ctx.fillStyle = palette.coldDot;
                  ctx.fillRect(x + resolution/2 - 1, y + resolution/2 - 1, 2, 2);
              }
           }
@@ -197,14 +233,15 @@ const ThermodynamicGrid = ({
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseleave", handleMouseLeave);
+      observer.disconnect();
     };
   }, [resolution, coolingFactor]);
 
   return (
     <div
       ref={containerRef}
-      className={cn("absolute inset-0 z-0 overflow-hidden bg-[#050505]", className)}
-      style={style}
+      className={cn("absolute inset-0 z-0 overflow-hidden", className)}
+      style={{ backgroundColor: "var(--background)", ...style }}
       {...props}
     >
       <canvas ref={canvasRef} className="block w-full h-full" />

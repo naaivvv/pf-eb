@@ -116,9 +116,10 @@ export default function ContactSection() {
 
         {/* Footer */}
         <div
-          className={`mt-20 pt-8 border-t border-white/5 transition-all duration-700 delay-400 ${
+          className={`mt-20 pt-8 transition-all duration-700 delay-400 ${
             isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
           }`}
+          style={{ borderTop: "1px solid var(--border-subtle)" }}
         >
           <p className="text-xs" style={{ color: "var(--muted-foreground)" }}>
             © {new Date().getFullYear()} Edwin Jr. P. Bayog · Crafted with React, TypeScript & Tailwind CSS

@@ -69,7 +69,17 @@ export default function AboutSection() {
                 {quickStats.map((stat) => (
                   <div
                     key={stat.label}
-                    className="text-center p-4 rounded-xl border border-white/5 bg-white/[0.02] hover:border-[var(--primary)]/20 transition-colors duration-300"
+                    className="text-center p-4 rounded-xl transition-colors duration-300"
+                    style={{
+                      border: "1px solid var(--border-subtle)",
+                      background: "var(--surface-subtle)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = "var(--glass-hover-border)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = "var(--border-subtle)";
+                    }}
                   >
                     <stat.icon size={18} className="mx-auto mb-2" style={{ color: "var(--primary)" }} />
                     <div className="text-2xl font-bold font-[var(--font-display)]" style={{ color: "var(--foreground)" }}>

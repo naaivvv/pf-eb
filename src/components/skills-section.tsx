@@ -1,5 +1,9 @@
 import { useInView } from "@/hooks/use-in-view";
 
+interface SkillsSectionProps {
+  isDark: boolean;
+}
+
 // --- SKILL DATA ---
 // `cdn` = Simple Icons slug (fetched from CDN)
 // `local` = path in public/icons/ (for brands not on Simple Icons)
@@ -62,12 +66,14 @@ const allSkills: Skill[] = [
 
 const SIMPLE_ICONS_CDN = "https://cdn.simpleicons.org";
 
-function getIconSrc(skill: Skill): string {
+function getIconSrc(skill: Skill, isDark: boolean): string {
   if (skill.local) return skill.local;
-  return `${SIMPLE_ICONS_CDN}/${skill.cdn}/${skill.color.replace("#", "")}`;
+  // For white icons in light mode, use a dark color instead
+  const color = (!isDark && skill.color === "#FFFFFF") ? "333333" : skill.color.replace("#", "");
+  return `${SIMPLE_ICONS_CDN}/${skill.cdn}/${color}`;
 }
 
-export default function SkillsSection() {
+export default function SkillsSection({ isDark }: SkillsSectionProps) {
   const { ref, isInView } = useInView();
 
   return (
@@ -95,14 +101,25 @@ export default function SkillsSection() {
               <div
                 key={skill.name}
                 className={`group relative rounded-xl flex flex-col items-center justify-center gap-3 py-7 px-4
-                  bg-white/[0.02] border border-white/[0.05]
-                  hover:bg-white/[0.05] hover:border-white/[0.10]
+                  border
                   transition-all duration-300 cursor-pointer
                   ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-4"}`}
-                style={{ animationDelay: `${(i % 12) * 50 + 100}ms` }}
+                style={{
+                  animationDelay: `${(i % 12) * 50 + 100}ms`,
+                  background: "var(--surface-subtle)",
+                  borderColor: "var(--border-subtle)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "var(--surface-subtle-hover)";
+                  e.currentTarget.style.borderColor = "var(--border-subtle-hover)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "var(--surface-subtle)";
+                  e.currentTarget.style.borderColor = "var(--border-subtle)";
+                }}
               >
                 <img
-                  src={getIconSrc(skill)}
+                  src={getIconSrc(skill, isDark)}
                   alt={skill.name}
                   className="w-10 h-10 object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300"
                   loading="lazy"

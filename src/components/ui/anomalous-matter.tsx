@@ -29,8 +29,8 @@ export function GenerativeArtScene({ className }: { className?: string }) {
       uniforms: {
         time: { value: 0 },
         pointLightPos: { value: new THREE.Vector3(0, 0, 5) },
-        // Using #FF8C00 (Dark Orange) base for the object
-        color: { value: new THREE.Color("#FF8C00") }, 
+        color: { value: new THREE.Color("#FF8C00") },
+        isLight: { value: 0.0 },
       },
       vertexShader: `
         uniform float time;
@@ -95,6 +95,7 @@ export function GenerativeArtScene({ className }: { className?: string }) {
       fragmentShader: `
         uniform vec3 color;
         uniform vec3 pointLightPosition;
+        uniform float isLight;
         varying vec3 vNormal;
         varying vec3 vPosition;
         
@@ -106,8 +107,16 @@ export function GenerativeArtScene({ className }: { className?: string }) {
             float fresnel = 1.0 - dot(normal, vec3(0.0, 0.0, 1.0));
             fresnel = pow(fresnel, 2.0);
             
-            vec3 finalColor = color * diffuse + color * fresnel * 0.5;
-            gl_FragColor = vec4(finalColor, 0.8); // 0.8 alpha for blending
+            // In light mode: strong ambient orange base + warm fresnel
+            // In dark mode: moderate ambient (0.3) to prevent pure black areas
+            float ambient = mix(0.3, 0.6, isLight);
+            vec3 finalColor = color * (ambient + diffuse * 0.7) + color * fresnel * 0.4;
+            
+            // Clamp to prevent oversaturation
+            finalColor = min(finalColor, vec3(1.0));
+            
+            float alpha = mix(0.8, 0.85, isLight);
+            gl_FragColor = vec4(finalColor, alpha);
         }
       `,
       wireframe: true,
@@ -120,6 +129,29 @@ export function GenerativeArtScene({ className }: { className?: string }) {
     pointLight.position.set(0, 0, 5);
     lightRef.current = pointLight;
     scene.add(pointLight);
+
+    // Theme-aware blend mode + color adaptation
+    const applyTheme = () => {
+      const theme = document.documentElement.getAttribute("data-theme");
+      const isLight = theme === "light";
+      if (currentMount) {
+        // Normal blend in light mode (no multiply graying)
+        // Screen blend in dark mode for additive glow
+        currentMount.style.mixBlendMode = isLight ? "normal" : "screen";
+        currentMount.style.opacity = isLight ? "0.85" : "0.70";
+      }
+      // Lighter, vibrant orange in light mode to prevent it from looking too dark, standard orange in dark
+      material.uniforms.color.value = new THREE.Color(isLight ? "#FFA500" : "#FF8C00");
+      material.uniforms.isLight.value = isLight ? 1.0 : 0.0;
+    };
+    applyTheme();
+
+    // Watch for theme changes
+    const themeObserver = new MutationObserver(() => applyTheme());
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
 
     let frameId: number;
     const animate = (t: number) => {
@@ -149,8 +181,9 @@ export function GenerativeArtScene({ className }: { className?: string }) {
       geometry.dispose();
       material.dispose();
       renderer.dispose();
+      themeObserver.disconnect();
     };
   }, []);
 
-  return <div ref={mountRef} className={cn("absolute inset-0 pointer-events-none", className)} />;
+  return <div ref={mountRef} className={cn("absolute inset-0 pointer-events-none opacity-70", className)} />;
 }

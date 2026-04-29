@@ -14,7 +14,7 @@ const badgeVariants = cva(
         accent:
           "border-[var(--accent)]/30 bg-[var(--accent)]/10 text-[var(--accent)]",
         outline:
-          "border-white/10 text-[var(--muted-foreground)]",
+          "border-[var(--border-subtle-hover)] text-[var(--muted-foreground)]",
       },
     },
     defaultVariants: {

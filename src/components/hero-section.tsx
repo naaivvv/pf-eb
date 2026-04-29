@@ -6,11 +6,16 @@ import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { fetchAIResponse, type ChatMessage } from "@/lib/ai-service";
+import { GooeyText } from "@/components/ui/gooey-text-morphing";
 
 interface Message {
   id: number;
   role: "user" | "ai";
   content: string;
+}
+
+interface HeroSectionProps {
+  isDark: boolean;
 }
 
 function formatMessageContent(content: string) {
@@ -35,7 +40,13 @@ function formatMessageContent(content: string) {
         </ReactMarkdown>
       </div>
       {attachedFileName && (
-        <div className="flex items-center gap-2 mt-1 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 w-fit">
+        <div
+          className="flex items-center gap-2 mt-1 px-3 py-1.5 rounded-lg w-fit"
+          style={{
+            background: "var(--surface-subtle)",
+            border: "1px solid var(--border-subtle)",
+          }}
+        >
           <FileUp size={14} className="opacity-70" />
           <span className="text-xs opacity-70">{attachedFileName}</span>
         </div>
@@ -63,7 +74,7 @@ function TypingIndicator() {
   );
 }
 
-export default function HeroSection() {
+export default function HeroSection({ isDark }: HeroSectionProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -150,18 +161,20 @@ export default function HeroSection() {
   const suggestions = [
     { icon: CodeXml, text: "AI Skills" },
     { icon: Rocket, text: "Projects" },
-    { icon: Layers, text: "IoT Architectures" },
-    { icon: Palette, text: "UI/UX Design" },
     { icon: User, text: "Resume Overview" },
-    { icon: Monitor, text: "System Dashboards" },
-    { icon: FileUp, text: "Upload Docs" },
     { icon: ImageIcon, text: "Project Demos" },
   ];
+
+  // Theme-aware colors
+  const aiAvatarBg = isDark ? "rgba(255,95,0,0.15)" : "rgba(255,95,0,0.10)";
+  const aiAvatarBorder = isDark ? "rgba(255,95,0,0.3)" : "rgba(255,95,0,0.25)";
+  const userAvatarBg = isDark ? "rgba(255,212,0,0.15)" : "rgba(255,212,0,0.10)";
+  const userAvatarBorder = isDark ? "rgba(255,212,0,0.3)" : "rgba(255,212,0,0.25)";
 
   return (
     <section className="relative w-full min-h-dvh flex flex-col items-center justify-center overflow-hidden bg-transparent">
       {/* 3D Anomalous Matter — hero-only */}
-      <GenerativeArtScene className="z-0 mix-blend-screen opacity-70" />
+      <GenerativeArtScene className="z-0" />
 
 
       {/* Content Layer */}
@@ -169,24 +182,36 @@ export default function HeroSection() {
 
         {/* Header Area (Shrinks if interacted) */}
         <div className={cn(
-          "flex flex-col items-center text-center transition-all duration-700",
-          hasInteracted ? "opacity-0 h-0 overflow-hidden mb-0" : "opacity-100 h-auto mb-10"
+          "relative flex flex-col items-center text-center transition-all duration-[1000ms] ease-out z-10",
+          hasInteracted ? "opacity-0 h-0 overflow-hidden mb-0 scale-95" : "opacity-100 h-auto mb-6 scale-100"
         )}>
-          {/* Name (De-emphasized) */}
+          {/* Conversational Greeting */}
           <h1
-            className="font-[var(--font-display)] text-2xl sm:text-3xl font-bold tracking-widest mb-2 animate-fade-up opacity-0 stagger-1"
+            className="font-[var(--font-display)] text-xl sm:text-2xl md:text-3xl font-bold tracking-tight leading-tight max-w-5xl animate-fade-up opacity-0 stagger-1 drop-shadow-sm"
             style={{ color: "var(--foreground)" }}
           >
-            Edwin Jr. <span style={{ color: "var(--primary)" }}> P. Bayog</span>
+            Hi, I'm <span className={cn("drop-shadow-md", isDark ? "text-[color:var(--primary)]" : "text-white")}>Edwin Jr.</span>
           </h1>
 
-          {/* Title */}
           <p
-            className="font-[var(--font-display)] text-xs sm:text-sm font-medium tracking-widest uppercase animate-fade-up opacity-0 stagger-2"
-            style={{ color: "var(--muted-foreground)" }}
+            className="font-[var(--font-display)] text-base sm:text-lg md:text-xl font-medium tracking-tight leading-relaxed max-w-3xl mt-2 animate-fade-up opacity-0 stagger-2"
+            style={{ color: isDark ? "var(--muted-foreground)" : "#2a2420" }}
           >
-            Computer Engineer · IoT - Fullstack - AI & Agentic Systems
+            A Computer Engineer who builds things with
           </p>
+
+          <div className="mt-2 sm:mt-4 animate-fade-up opacity-0 stagger-2 w-full flex justify-center px-4">
+            <GooeyText
+              texts={["IoT", "Full-stack", "AI Agents"]}
+              morphTime={2}
+              cooldownTime={4}
+              className="text-[clamp(2rem,8vw,4rem)] leading-none inline-flex items-center justify-center w-full max-w-full h-[1.3em] overflow-visible"
+              textClassName={cn(
+                "font-black tracking-tighter drop-shadow-md uppercase whitespace-nowrap",
+                isDark ? "text-[color:var(--primary)]" : "text-white"
+              )}
+            />
+          </div>
         </div>
 
         {/* AI Prompt Box Area */}
@@ -208,7 +233,8 @@ export default function HeroSection() {
                     setInputValue("");
                     setAttachedFile(null);
                   }}
-                  className="h-8 text-white/50 hover:text-white hover:bg-white/10 rounded-lg text-xs"
+                  className="h-8 rounded-lg text-xs"
+                  style={{ color: "var(--muted-foreground)" }}
                 >
                   <RotateCcw size={14} className="mr-1.5" />
                   New Chat
@@ -229,8 +255,8 @@ export default function HeroSection() {
                     <div
                       className="w-8 h-8 rounded-xl flex-shrink-0 flex items-center justify-center mt-1"
                       style={{
-                        background: msg.role === "ai" ? "rgba(255,95,0,0.15)" : "rgba(255,212,0,0.15)",
-                        border: `1px solid ${msg.role === "ai" ? "rgba(255,95,0,0.3)" : "rgba(255,212,0,0.3)"}`
+                        background: msg.role === "ai" ? aiAvatarBg : userAvatarBg,
+                        border: `1px solid ${msg.role === "ai" ? aiAvatarBorder : userAvatarBorder}`
                       }}
                     >
                       {msg.role === "ai" ? (
@@ -242,10 +268,10 @@ export default function HeroSection() {
                     <div
                       className="px-5 py-3.5 rounded-2xl text-sm sm:text-base leading-relaxed"
                       style={{
-                        background: "rgba(12, 10, 18, 0.6)",
+                        background: "var(--chat-bubble-bg)",
                         backdropFilter: "blur(12px)",
                         color: "var(--foreground)",
-                        border: "1px solid rgba(255, 255, 255, 0.08)",
+                        border: "1px solid var(--glass-border)",
                         borderTopLeftRadius: msg.role === "ai" ? "4px" : "1rem",
                         borderTopRightRadius: msg.role === "user" ? "4px" : "1rem",
                       }}
@@ -259,8 +285,8 @@ export default function HeroSection() {
                     <div
                       className="w-8 h-8 rounded-xl flex-shrink-0 flex items-center justify-center mt-1"
                       style={{
-                        background: "rgba(255,95,0,0.15)",
-                        border: "1px solid rgba(255,95,0,0.3)"
+                        background: aiAvatarBg,
+                        border: `1px solid ${aiAvatarBorder}`
                       }}
                     >
                       <Bot size={16} style={{ color: "var(--primary)" }} />
@@ -268,9 +294,9 @@ export default function HeroSection() {
                     <div
                       className="px-5 py-2.5 rounded-2xl"
                       style={{
-                        background: "rgba(12, 10, 18, 0.6)",
+                        background: "var(--chat-bubble-bg)",
                         backdropFilter: "blur(12px)",
-                        border: "1px solid rgba(255, 255, 255, 0.08)",
+                        border: "1px solid var(--glass-border)",
                         borderTopLeftRadius: "4px",
                       }}
                     >
@@ -285,10 +311,10 @@ export default function HeroSection() {
           <div
             className="w-full relative group transition-all duration-300"
             style={{
-              background: "rgba(12, 10, 18, 0.75)",
+              background: "var(--chat-input-bg)",
               backdropFilter: "blur(24px)",
-              border: "1px solid rgba(255, 140, 0, 0.25)",
-              boxShadow: "0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 95, 0, 0.1)",
+              border: `1px solid var(--chat-input-border)`,
+              boxShadow: "var(--chat-input-shadow)",
               borderRadius: "1.5rem"
             }}
           >
@@ -301,15 +327,22 @@ export default function HeroSection() {
             >
               {/* Attachment Badge (if any) */}
               {attachedFile && (
-                <div className="flex items-center justify-between px-3 py-2 mb-2 rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm">
+                <div
+                  className="flex items-center justify-between px-3 py-2 mb-2 rounded-lg backdrop-blur-sm"
+                  style={{
+                    background: "var(--surface-subtle)",
+                    border: "1px solid var(--border-subtle)",
+                  }}
+                >
                   <div className="flex items-center gap-2 overflow-hidden">
-                    <FileUp size={14} className="text-[var(--primary)] shrink-0" />
-                    <span className="text-xs text-white/70 truncate">{attachedFile.name}</span>
+                    <FileUp size={14} style={{ color: "var(--primary)" }} className="shrink-0" />
+                    <span className="text-xs truncate" style={{ color: "var(--muted-foreground)" }}>{attachedFile.name}</span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setAttachedFile(null)}
-                    className="p-1 rounded-md text-white/40 hover:text-white hover:bg-white/10 transition-colors shrink-0"
+                    className="p-1 rounded-md transition-colors shrink-0"
+                    style={{ color: "var(--muted-foreground)" }}
                   >
                     <X size={14} />
                   </button>
@@ -320,8 +353,11 @@ export default function HeroSection() {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder={attachedFile ? "Add a message about this document..." : "Ask about the projects I've brought to life..."}
-                className="w-full bg-transparent border-none outline-none resize-none flex-1 text-sm sm:text-base placeholder:text-white/30"
-                style={{ color: "var(--foreground)" }}
+                className="w-full bg-transparent border-none outline-none resize-none flex-1 text-sm sm:text-base"
+                style={{
+                  color: "var(--foreground)",
+                  caretColor: "var(--primary)",
+                }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
@@ -342,7 +378,10 @@ export default function HeroSection() {
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="p-2 rounded-xl text-white/40 hover:text-[var(--primary)] hover:bg-white/5 transition-colors"
+                  className="p-2 rounded-xl transition-colors"
+                  style={{ color: "var(--muted-foreground)" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "var(--primary)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "var(--muted-foreground)"; }}
                 >
                   <Paperclip size={18} />
                 </button>
@@ -353,8 +392,8 @@ export default function HeroSection() {
                   disabled={!inputValue.trim() && !attachedFile}
                   className="h-9 w-9 shrink-0 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   style={{
-                    background: (inputValue.trim() || attachedFile) ? "linear-gradient(135deg, var(--primary), var(--secondary))" : "rgba(255, 255, 255, 0.05)",
-                    color: (inputValue.trim() || attachedFile) ? "white" : "rgba(255, 255, 255, 0.3)"
+                    background: (inputValue.trim() || attachedFile) ? "linear-gradient(135deg, var(--primary), var(--secondary))" : "var(--surface-subtle)",
+                    color: (inputValue.trim() || attachedFile) ? "white" : "var(--muted-foreground)"
                   }}
                 >
                   <ArrowUp size={18} />
@@ -374,17 +413,19 @@ export default function HeroSection() {
                     onClick={() => handleSend(suggestion.text)}
                     className="flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm transition-all duration-300 hover:scale-105"
                     style={{
-                      background: "rgba(255, 255, 255, 0.02)",
-                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                      background: isDark ? "rgba(12, 10, 18, 0.55)" : "rgba(245, 242, 238, 0.75)",
+                      backdropFilter: "blur(12px)",
+                      WebkitBackdropFilter: "blur(12px)",
+                      border: "1px solid var(--border-subtle)",
                       color: "var(--foreground)"
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.borderColor = "var(--secondary)";
-                      e.currentTarget.style.background = "rgba(255, 140, 0, 0.05)";
+                      e.currentTarget.style.background = isDark ? "rgba(255, 140, 0, 0.08)" : "rgba(245, 242, 238, 0.88)";
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                      e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
+                      e.currentTarget.style.borderColor = "var(--border-subtle)";
+                      e.currentTarget.style.background = isDark ? "rgba(12, 10, 18, 0.55)" : "rgba(245, 242, 238, 0.75)";
                     }}
                   >
                     <Icon size={14} className="opacity-70" />

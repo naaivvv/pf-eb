@@ -217,11 +217,11 @@ export default function ProjectsSection() {
             {projects.map((project) => (
               <div
                 key={project.id}
-                className="pointer-events-auto group flex-shrink-0 glass rounded-2xl overflow-hidden border border-white/[0.06] hover:border-[var(--primary)]/30 transition-all duration-500 hover:shadow-[0_0_30px_rgba(249,115,22,0.08)]"
-                style={{ width: `${CARD_W}px` }}
+                className="pointer-events-auto group flex-shrink-0 glass rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_var(--glass-hover-shadow)]"
+                style={{ width: `${CARD_W}px`, borderColor: "var(--border-subtle)" }}
               >
                 {/* Image */}
-                <div className="relative w-full aspect-[16/10] overflow-hidden bg-black/30">
+                <div className="relative w-full aspect-[16/10] overflow-hidden" style={{ background: "var(--surface-subtle)" }}>
                   <img
                     src={project.image}
                     alt={project.title}
@@ -232,7 +232,7 @@ export default function ProjectsSection() {
                   <div className="absolute top-3 right-3">
                     <span
                       className="text-[10px] font-bold tracking-widest px-2.5 py-1 rounded-full backdrop-blur-md"
-                      style={{ background: "rgba(5,5,5,0.7)", color: "var(--primary)", border: "1px solid rgba(249,115,22,0.2)" }}
+                      style={{ background: "var(--badge-overlay-bg)", color: "var(--primary)", border: "1px solid var(--glass-hover-border)" }}
                     >
                       {project.year}
                     </span>
@@ -241,7 +241,7 @@ export default function ProjectsSection() {
                   <div className="absolute top-3 left-3">
                     <span
                       className="text-[10px] font-medium tracking-wide px-2.5 py-1 rounded-full backdrop-blur-md"
-                      style={{ background: "rgba(5,5,5,0.7)", color: "var(--muted-foreground)", border: "1px solid rgba(255,255,255,0.08)" }}
+                      style={{ background: "var(--badge-overlay-bg)", color: "var(--muted-foreground)", border: "1px solid var(--border-subtle)" }}
                     >
                       {project.category}
                     </span>
