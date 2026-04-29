@@ -110,15 +110,17 @@ export function GooeyText({
               values="1 0 0 0 0
                       0 1 0 0 0
                       0 0 1 0 0
-                      0 0 0 255 -140"
+                      0 0 0 50 -20"
+              result="matrix"
             />
+            <feComposite in="SourceGraphic" in2="matrix" operator="atop" />
           </filter>
         </defs>
       </svg>
 
       <div
-        className="flex items-center justify-center"
-        style={{ filter: "url(#threshold)" }}
+        className="flex items-center justify-center will-change-transform"
+        style={{ filter: "url(#threshold)", transform: "translateZ(0)" }}
       >
         <span
           ref={text1Ref}
