@@ -273,6 +273,7 @@ export default function HeroSection({ isDark }: HeroSectionProps) {
               </div>
               <div
                 ref={chatContainerRef}
+                data-lenis-prevent
                 className="w-full flex-1 overflow-y-auto pr-2 space-y-6 scrollbar-thin flex flex-col"
               >
                 {messages.map((msg) => (
