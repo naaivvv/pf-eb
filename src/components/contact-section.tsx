@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useInView } from "@/hooks/use-in-view";
+import { motion } from "framer-motion";
 import { Mail, ArrowUpRight } from "lucide-react";
 
 // Custom SVG icons for brand logos (lucide-react dropped brand icons)
@@ -50,17 +50,17 @@ const socialLinks = [
 ];
 
 export default function ContactSection() {
-  const { ref, isInView } = useInView();
-
   return (
-    <section id="contact" className="relative w-full min-h-screen overflow-hidden bg-transparent" ref={ref}>
+    <section id="contact" className="relative w-full min-h-screen overflow-hidden bg-transparent">
       <div className="relative z-10 max-w-3xl mx-auto text-center section-padding pointer-events-none">
         <div className="pointer-events-auto">
         {/* Header */}
-        <div
-          className={`mb-12 transition-all duration-700 ${
-            isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-          }`}
+        <motion.div
+          className="mb-12"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
         >
           <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-bold tracking-wider mb-4">
             <span style={{ color: "var(--foreground)" }}>Let's Build </span>
@@ -71,13 +71,15 @@ export default function ContactSection() {
             Whether it's an Edge AI prototype, an automated workflow, or a full-stack web application —
             I'm always open to challenging projects and collaborations.
           </p>
-        </div>
+        </motion.div>
 
         {/* CTA Button */}
-        <div
-          className={`mb-12 transition-all duration-700 delay-200 ${
-            isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-          }`}
+        <motion.div
+          className="mb-12"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
         >
           <a href="mailto:edwinbayog22@gmail.com">
             <Button size="lg" className="animate-glow-pulse font-[var(--font-display)] tracking-wider uppercase text-sm gap-2">
@@ -85,13 +87,15 @@ export default function ContactSection() {
               <ArrowUpRight size={14} />
             </Button>
           </a>
-        </div>
+        </motion.div>
 
         {/* Social Links */}
-        <div
-          className={`flex justify-center gap-4 flex-wrap transition-all duration-700 delay-300 ${
-            isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-          }`}
+        <motion.div
+          className="flex justify-center gap-4 flex-wrap"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
         >
           {socialLinks.map((link) => (
             <a
@@ -112,19 +116,21 @@ export default function ContactSection() {
               </span>
             </a>
           ))}
-        </div>
+        </motion.div>
 
         {/* Footer */}
-        <div
-          className={`mt-20 pt-8 transition-all duration-700 delay-400 ${
-            isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-          }`}
+        <motion.div
+          className="mt-20 pt-8"
           style={{ borderTop: "1px solid var(--border-subtle)" }}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.3 }}
         >
           <p className="text-xs" style={{ color: "var(--muted-foreground)" }}>
             © {new Date().getFullYear()} Edwin Jr. P. Bayog · Crafted with React, TypeScript & Tailwind CSS
           </p>
-        </div>
+        </motion.div>
         </div>
       </div>
     </section>

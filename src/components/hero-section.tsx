@@ -7,6 +7,8 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { fetchAIResponse, type ChatMessage } from "@/lib/ai-service";
 import { GooeyText } from "@/components/ui/gooey-text-morphing";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useLenis } from "lenis/react";
 
 interface Message {
   id: number;
@@ -82,6 +84,20 @@ export default function HeroSection({ isDark }: HeroSectionProps) {
   const [attachedFile, setAttachedFile] = useState<{ name: string; content: string } | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Lenis integration for consistent smooth scrolling
+  const lenis = useLenis();
+
+  // Scroll-driven parallax: track hero section scroll progress
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Map scroll progress to opacity (1 → 0) and y-drift (0 → 150px)
+  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 150]);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -101,6 +117,8 @@ export default function HeroSection({ isDark }: HeroSectionProps) {
 
   useEffect(() => {
     if (chatContainerRef.current) {
+      // Chat container is an internal overflow div, not managed by Lenis.
+      // Use native scrollTo to keep the chat scrolled to the bottom.
       chatContainerRef.current.scrollTo({
         top: chatContainerRef.current.scrollHeight,
         behavior: "smooth",
@@ -171,14 +189,27 @@ export default function HeroSection({ isDark }: HeroSectionProps) {
   const userAvatarBg = isDark ? "rgba(255,212,0,0.15)" : "rgba(255,212,0,0.10)";
   const userAvatarBorder = isDark ? "rgba(255,212,0,0.3)" : "rgba(255,212,0,0.25)";
 
+  // Scroll to About section using Lenis
+  const scrollToAbout = () => {
+    const aboutEl = document.getElementById("about");
+    if (aboutEl && lenis) {
+      lenis.scrollTo(aboutEl, { duration: 1.5 });
+    } else if (aboutEl) {
+      aboutEl.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <section className="relative w-full min-h-dvh flex flex-col items-center justify-center overflow-hidden bg-transparent">
+    <section ref={sectionRef} className="relative w-full min-h-dvh flex flex-col items-center justify-center overflow-hidden bg-transparent">
       {/* 3D Anomalous Matter — hero-only */}
       <GenerativeArtScene className="z-0" />
 
 
-      {/* Content Layer */}
-      <div className="relative z-10 w-full px-4 sm:px-6 max-w-3xl mx-auto flex flex-col items-center mt-8 pointer-events-none transition-all duration-700">
+      {/* Content Layer — scroll-driven parallax */}
+      <motion.div
+        className="relative z-10 w-full px-4 sm:px-6 max-w-3xl mx-auto flex flex-col items-center mt-8 pointer-events-none transition-all duration-700"
+        style={{ opacity: heroOpacity, y: heroY }}
+      >
 
         {/* Header Area (Shrinks if interacted) */}
         <div className={cn(
@@ -437,12 +468,12 @@ export default function HeroSection({ isDark }: HeroSectionProps) {
           )}
         </div>
 
-      </div>
+      </motion.div>
 
       {/* Scroll indicator */}
       {!hasInteracted && (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-chevron-bounce cursor-pointer pointer-events-auto"
-          onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
+          onClick={scrollToAbout}
         >
           <ChevronDown size={32} style={{ color: "var(--muted-foreground)" }} />
         </div>

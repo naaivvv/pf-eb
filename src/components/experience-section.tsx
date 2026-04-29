@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { useInView } from "@/hooks/use-in-view";
+import { motion } from "framer-motion";
 import { Briefcase } from "lucide-react";
 
 const experiences = [
@@ -67,23 +67,24 @@ const experiences = [
 ];
 
 export default function ExperienceSection() {
-  const { ref, isInView } = useInView();
-
   return (
-    <section id="experience" className="relative w-full min-h-screen overflow-hidden bg-transparent" ref={ref}>
+    <section id="experience" className="relative w-full min-h-screen overflow-hidden bg-transparent">
       <div className="relative z-10 max-w-4xl mx-auto section-padding pointer-events-none">
         <div className="pointer-events-auto">
         {/* Section Header */}
-        <div
-          className={`text-center mb-16 transition-all duration-700 ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-            }`}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
         >
           <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-bold tracking-wider mb-4">
             <span style={{ color: "var(--foreground)" }}>Work </span>
             <span style={{ color: "var(--primary)" }}>Experience</span>
           </h2>
           <div className="w-20 h-0.5 mx-auto" style={{ background: "var(--primary)" }} />
-        </div>
+        </motion.div>
 
         {/* Timeline */}
         <div className="relative">
@@ -95,13 +96,13 @@ export default function ExperienceSection() {
 
           <div className="space-y-12">
             {experiences.map((exp, i) => (
-              <div
+              <motion.div
                 key={i}
-                className={`relative pl-12 md:pl-20 transition-all duration-700 ${isInView
-                    ? "animate-fade-up opacity-100"
-                    : "opacity-0 translate-y-6"
-                  }`}
-                style={{ animationDelay: `${(i + 1) * 150}ms` }}
+                className="relative pl-12 md:pl-20"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.7, ease: "easeOut", delay: i * 0.15 }}
               >
                 {/* Timeline Dot */}
                 <div
@@ -148,7 +149,7 @@ export default function ExperienceSection() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

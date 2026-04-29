@@ -1,4 +1,4 @@
-import { useInView } from "@/hooks/use-in-view";
+import { motion } from "framer-motion";
 import antigravityIcon from "@/assets/icons/antigravity.svg";
 import lovableIcon from "@/assets/icons/lovable.svg";
 import powerbiIcon from "@/assets/icons/powerbi.svg";
@@ -7,10 +7,6 @@ interface SkillsSectionProps {
   isDark: boolean;
 }
 
-// --- SKILL DATA ---
-// `cdn` = Simple Icons slug (fetched from CDN)
-// `local` = path to imported asset (for brands not on Simple Icons)
-// `color` = official brand hex color for the icon
 type Skill = {
   name: string;
   color: string;
@@ -60,22 +56,21 @@ const SIMPLE_ICONS_CDN = "https://cdn.simpleicons.org";
 
 function getIconSrc(skill: Skill, isDark: boolean): string {
   if (skill.local) return skill.local;
-  // For white icons in light mode, use a dark color instead
   const color = (!isDark && skill.color === "#FFFFFF") ? "333333" : skill.color.replace("#", "");
   return `${SIMPLE_ICONS_CDN}/${skill.cdn}/${color}`;
 }
 
 export default function SkillsSection({ isDark }: SkillsSectionProps) {
-  const { ref, isInView } = useInView();
-
   return (
-    <section id="skills" className="relative w-full min-h-screen overflow-hidden bg-transparent" ref={ref}>
+    <section id="skills" className="relative w-full min-h-screen overflow-hidden bg-transparent">
       <div className="relative z-10 max-w-6xl mx-auto section-padding pointer-events-none">
         <div className="pointer-events-auto">
-
-          {/* Section Header */}
-          <div
-            className={`text-center mb-16 transition-all duration-700 ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"}`}
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           >
             <h2 className="font-[var(--font-display)] text-3xl sm:text-4xl font-bold tracking-wider mb-4">
               <span style={{ color: "var(--foreground)" }}>Tech </span>
@@ -85,17 +80,19 @@ export default function SkillsSection({ isDark }: SkillsSectionProps) {
             <p className="text-sm max-w-lg mx-auto" style={{ color: "var(--muted-foreground)" }}>
               Tools, frameworks, and platforms I build with.
             </p>
-          </div>
+          </motion.div>
 
-          {/* Logo Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+          <motion.div
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
+          >
             {allSkills.map((skill, i) => (
               <div
                 key={skill.name}
-                className={`group relative rounded-xl flex flex-col items-center justify-center gap-3 py-7 px-4
-                  border
-                  transition-all duration-300 cursor-pointer
-                  ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-4"}`}
+                className="group relative rounded-xl flex flex-col items-center justify-center gap-3 py-7 px-4 border transition-all duration-300 cursor-pointer animate-fade-up opacity-0"
                 style={{
                   animationDelay: `${(i % 12) * 50 + 100}ms`,
                   background: "var(--surface-subtle)",
@@ -125,8 +122,7 @@ export default function SkillsSection({ isDark }: SkillsSectionProps) {
                 </span>
               </div>
             ))}
-          </div>
-
+          </motion.div>
         </div>
       </div>
     </section>

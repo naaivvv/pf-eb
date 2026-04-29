@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { useInView } from "@/hooks/use-in-view";
+import { motion } from "framer-motion";
 import {
   GraduationCap,
   Award,
@@ -69,16 +69,17 @@ const education = [
 ];
 
 export default function AboutSection() {
-  const { ref, isInView } = useInView();
-
   return (
-    <section id="about" className="relative w-full min-h-screen overflow-hidden bg-transparent" ref={ref}>
+    <section id="about" className="relative w-full min-h-screen overflow-hidden bg-transparent">
       <div className="relative z-10 max-w-6xl mx-auto section-padding pointer-events-none">
         <div className="pointer-events-auto">
           {/* Section Header */}
-          <div
-            className={`text-center mb-16 transition-all duration-700 ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-              }`}
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           >
             <h2
               className="font-[var(--font-display)] text-3xl sm:text-4xl font-bold tracking-wider mb-4"
@@ -87,12 +88,15 @@ export default function AboutSection() {
               About <span style={{ color: "var(--primary)" }}>Me</span>
             </h2>
             <div className="w-20 h-0.5 mx-auto" style={{ background: "var(--primary)" }} />
-          </div>
+          </motion.div>
 
           {/* ─── Top Row: Portrait + Summary ─── */}
-          <div
-            className={`grid lg:grid-cols-12 gap-8 mb-8 transition-all duration-700 delay-100 ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-              }`}
+          <motion.div
+            className="grid lg:grid-cols-12 gap-8 mb-8"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
           >
             {/* Portrait Card */}
             <div className="lg:col-span-4 flex">
@@ -179,12 +183,15 @@ export default function AboutSection() {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* ─── Bottom Row: Education + Certifications ─── */}
-          <div
-            className={`grid lg:grid-cols-12 gap-8 transition-all duration-700 delay-200 ${isInView ? "animate-fade-up opacity-100" : "opacity-0 translate-y-6"
-              }`}
+          <motion.div
+            className="grid lg:grid-cols-12 gap-8"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
           >
             {/* Education */}
             <div className="lg:col-span-5">
@@ -269,7 +276,7 @@ export default function AboutSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
