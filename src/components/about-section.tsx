@@ -3,7 +3,6 @@ import { useInView } from "@/hooks/use-in-view";
 import {
   GraduationCap,
   Award,
-  Globe,
   BookOpen,
   Cpu,
   Sparkles,
