@@ -238,7 +238,7 @@ export default function HeroSection({ isDark }: HeroSectionProps) {
               cooldownTime={4}
               className="text-[clamp(2rem,8vw,4rem)] leading-none inline-flex items-center justify-center w-full max-w-full h-[1.3em] overflow-visible"
               textClassName={cn(
-                "font-black tracking-tighter drop-shadow-md uppercase whitespace-nowrap",
+                "font-black tracking-tighter drop-shadow-md whitespace-nowrap",
                 isDark ? "text-[color:var(--primary)]" : "text-white"
               )}
             />
