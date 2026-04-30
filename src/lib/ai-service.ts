@@ -5,7 +5,10 @@ export interface ChatMessage {
   content: string;
 }
 
-export async function fetchAIResponse(messages: ChatMessage[]): Promise<string> {
+export async function fetchAIResponse(
+  messages: ChatMessage[],
+  onChunk: (chunk: string) => void
+): Promise<void> {
 
   // Prepend the system prompt context
   const fullMessages = [
@@ -54,10 +57,36 @@ Keep your responses concise but engaging (1-3 short paragraphs), as they will be
       throw new Error(`API returned ${response.status}`);
     }
 
-    const data = await response.json();
-    return data.choices[0].message.content;
+    const reader = response.body?.getReader();
+    if (!reader) throw new Error("No response body reader");
+
+    const decoder = new TextDecoder();
+    let buffer = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop() || "";
+
+      for (const line of lines) {
+        if (line.startsWith('data: ') && line !== 'data: [DONE]') {
+          try {
+            const data = JSON.parse(line.slice(6));
+            const content = data.choices[0]?.delta?.content || "";
+            if (content) {
+              onChunk(content);
+            }
+          } catch (e) {
+            // Ignore parse errors from partial chunks
+          }
+        }
+      }
+    }
   } catch (error) {
     console.error("Failed to fetch AI response:", error);
-    return "I'm sorry, I'm having trouble connecting to my brain right now. Please try asking again later!";
+    onChunk("\n\n*I'm sorry, I'm having trouble connecting to my brain right now. Please try asking again later!*");
   }
 }

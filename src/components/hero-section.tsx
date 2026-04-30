@@ -155,14 +155,18 @@ export default function HeroSection({ isDark }: HeroSectionProps) {
         content: msg.content
       }));
 
-      const responseText = await fetchAIResponse(apiMessages);
+      const aiMsgId = Date.now() + 1;
+      setMessages((prev) => [...prev, { id: aiMsgId, role: "ai", content: "" }]);
 
-      const aiMsg: Message = {
-        id: Date.now() + 1,
-        role: "ai",
-        content: responseText,
-      };
-      setMessages((prev) => [...prev, aiMsg]);
+      await fetchAIResponse(apiMessages, (chunk) => {
+        setIsTyping(false); // Hide dots as soon as the first word arrives
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === aiMsgId ? { ...msg, content: msg.content + chunk } : msg
+          )
+        );
+      });
+
     } catch (error) {
       console.error(error);
       const errorMsg: Message = {
@@ -225,21 +229,21 @@ export default function HeroSection({ isDark }: HeroSectionProps) {
           </h1>
 
           <p
-            className="font-[var(--font-display)] text-base sm:text-lg md:text-xl font-medium tracking-tight leading-relaxed max-w-3xl mt-2 animate-fade-up opacity-0 stagger-2"
+            className="font-[var(--font-display)] text-sm sm:text-md md:text-lg font-medium tracking-tight leading-relaxed max-w-3xl mt-2 animate-fade-up opacity-0 stagger-2"
             style={{ color: isDark ? "var(--muted-foreground)" : "#2a2420" }}
           >
-            A Computer Engineer who builds things with
+            A Computer Engineer building intelligent systems with
           </p>
 
           <div className="mt-2 sm:mt-4 animate-fade-up opacity-0 stagger-2 w-full flex justify-center px-4">
             <GooeyText
-              texts={["IoT", "Full-stack", "AI Agents"]}
+              texts={["IoT Architecture", "Full-Stack Apps", "AI Agents", "Computer Vision", "Edge Computing", "Data Engineering"]}
               morphTime={2}
               cooldownTime={4}
-              className="text-[clamp(2rem,8vw,4rem)] leading-none inline-flex items-center justify-center w-full max-w-full h-[1.3em] overflow-visible"
+              className="text-[clamp(2.5rem,10vw,6rem)] leading-none inline-flex items-center justify-center w-full max-w-full h-[1.3em] overflow-visible"
               textClassName={cn(
                 "font-black tracking-tighter drop-shadow-md whitespace-nowrap",
-                isDark ? "text-[color:var(--primary)]" : "text-white"
+                isDark ? "text-[color:var(--foreground)]" : "text-white"
               )}
             />
           </div>

@@ -49,7 +49,24 @@ Edwin has built a diverse portfolio spanning AI/ML, IoT, web development, and da
 
 ## ACADEMIC BACKGROUND
 **Bachelor of Science in Computer Engineering**
+*   **Institution**: Technological University of the Philippines - Visayas (2022 – Present)
 *   **Focus Areas**: Machine Learning, Embedded Systems, Data Structures, and Software Engineering.
 *   Edwin leveraged his strong academic foundation to rapidly master cutting-edge modern tech stacks and AI frameworks independently.
+
+**Mandarin Language Program**
+*   **Institution**: Beijing Language & Culture University (2021 – 2022)
+*   **Achievement**: Achieved HSK Level 4 Chinese Proficiency.
+
+## CERTIFICATIONS & AWARDS
+*   **DOST-SEI JLSS Scholar** (DOST)
+*   **Class Valedictorian (JHS & SHS)** (Academic)
+*   **2× DepEd Division Technolympics Web Page Designing Contest Champion** (DepEd)
+*   **Vibe Coding — L2: Silver** (Lovable, Mar 2026)
+*   **Career Accelerator: Technical Skills That Actually Matter** (TUP, Feb 2026)
+*   **The Multi-Hyphenate Engineer — Beyond the Code** (TUP, Mar 2026)
+*   **Digital Footprint: Impact of CpE on Modern Society** (TUP, Feb 2026)
+*   **GIS Techniques & Spatial Data Analysis** (ICpEP.se-R6, Mar 2023)
+*   **Google DevFest 2023 Attendee** (GDG, Oct 2023)
+*   **STEM Capstone Research Consultant** (Academic)
 `;
 

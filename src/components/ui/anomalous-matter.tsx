@@ -154,14 +154,41 @@ export function GenerativeArtScene({ className }: { className?: string }) {
     });
 
     let frameId: number;
+    let isVisible = true;
+    let accumulatedTime = 0;
+    let lastTime = performance.now();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        isVisible = entries[0].isIntersecting;
+        if (isVisible) {
+          lastTime = performance.now(); // Prevent delta spikes upon returning
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(currentMount);
+
     const animate = (t: number) => {
-      material.uniforms.time.value = t * 0.0003;
-      mesh.rotation.y += 0.0005;
-      mesh.rotation.x += 0.0002;
-      renderer.render(scene, camera);
       frameId = requestAnimationFrame(animate);
+
+      if (!isVisible) return; // Pause rendering and calculations when off-screen
+
+      const delta = t - lastTime;
+      lastTime = t;
+
+      // Cap delta to avoid large snaps if the browser lags or throttles
+      const safeDelta = Math.min(delta, 50);
+      accumulatedTime += safeDelta;
+
+      material.uniforms.time.value = accumulatedTime * 0.0003;
+      // Scale rotation by expected 60fps frame duration (~16.666ms)
+      mesh.rotation.y += 0.0005 * (safeDelta / 16.666);
+      mesh.rotation.x += 0.0002 * (safeDelta / 16.666);
+      
+      renderer.render(scene, camera);
     };
-    animate(0);
+    requestAnimationFrame(animate);
 
     const handleResize = () => {
       camera.aspect = currentMount.clientWidth / currentMount.clientHeight;
@@ -182,6 +209,7 @@ export function GenerativeArtScene({ className }: { className?: string }) {
       material.dispose();
       renderer.dispose();
       themeObserver.disconnect();
+      observer.disconnect();
     };
   }, []);
 

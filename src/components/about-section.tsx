@@ -30,7 +30,7 @@ interface Certification {
 
 const certifications: Certification[] = [
   // Awards & Honors
-  { title: "2× DepEd Technolympics Champion", issuer: "DepEd", date: "", variant: "default" },
+  { title: "2× DepEd Division Technolympics Web Page Designing Contest Champion", issuer: "DepEd", date: "", variant: "default" },
   { title: "Class Valedictorian (JHS & SHS)", issuer: "Academic", date: "", variant: "default" },
   { title: "DOST-SEI JLSS Scholar", issuer: "DOST", date: "", variant: "default" },
 
