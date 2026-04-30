@@ -312,34 +312,14 @@ export default function HeroSection({ isDark }: HeroSectionProps) {
                         borderTopRightRadius: msg.role === "user" ? "4px" : "1rem",
                       }}
                     >
-                      {formatMessageContent(msg.content)}
+                      {msg.role === "ai" && !msg.content ? (
+                        <TypingIndicator />
+                      ) : (
+                        formatMessageContent(msg.content)
+                      )}
                     </div>
                   </div>
                 ))}
-                {isTyping && (
-                  <div className="flex gap-3 max-w-[85%] self-start">
-                    <div
-                      className="w-8 h-8 rounded-xl flex-shrink-0 flex items-center justify-center mt-1"
-                      style={{
-                        background: aiAvatarBg,
-                        border: `1px solid ${aiAvatarBorder}`
-                      }}
-                    >
-                      <Bot size={16} style={{ color: "var(--primary)" }} />
-                    </div>
-                    <div
-                      className="px-5 py-2.5 rounded-2xl"
-                      style={{
-                        background: "var(--chat-bubble-bg)",
-                        backdropFilter: "blur(12px)",
-                        border: "1px solid var(--glass-border)",
-                        borderTopLeftRadius: "4px",
-                      }}
-                    >
-                      <TypingIndicator />
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           )}
