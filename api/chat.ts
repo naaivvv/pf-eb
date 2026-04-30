@@ -21,11 +21,11 @@ export default async function handler(req: Request) {
       headers: {
         "Authorization": `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://edwinbayog-portfolio.vercel.app", 
-        "X-Title": "Edwin Bayog Portfolio", 
+        "HTTP-Referer": "https://edwinbayog-portfolio.vercel.app",
+        "X-Title": "Edwin Bayog Portfolio",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.0-flash-lite-preview-02-05:free",
+        model: "openrouter/free",
         messages: body.messages,
         stream: true,
       }),
