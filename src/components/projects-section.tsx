@@ -55,7 +55,7 @@ const projects: Project[] = [
     techStack: ["Node.js", "WebSockets", "LangChain", "Supabase", "PostgreSQL"],
     category: "Agentic AI",
     year: "2026",
-    image: getProjectImage("placeholder.svg"),
+    image: getProjectImage("voice-dispatcher.png"),
   },
   {
     id: "lead-routing",
@@ -65,7 +65,7 @@ const projects: Project[] = [
     techStack: ["Next.js", "Supabase", "n8n", "Gemini", "Telegram"],
     category: "AI Automation",
     year: "2026",
-    image: getProjectImage("placeholder.svg"),
+    image: getProjectImage("lead-intel.png"),
   },
   {
     id: "brightedge",
