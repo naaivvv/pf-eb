@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { ArrowUpRight, X } from "lucide-react";
 
 // --- PROJECT DATA ---
 export type Project = {
@@ -203,8 +204,182 @@ const projects: Project[] = [
 const CARD_W = 380; // px per card
 const GAP = 20; // px gap between cards
 
+function ProjectModal({
+  project,
+  onClose,
+}: {
+  project: Project | null;
+  onClose: () => void;
+}) {
+  return (
+    <AnimatePresence>
+      {project && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6 pointer-events-auto"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="project-modal-title"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.button
+            type="button"
+            className="absolute inset-0 cursor-default"
+            style={{ background: "rgba(3, 3, 5, 0.78)", backdropFilter: "blur(18px)" }}
+            aria-label="Close project details"
+            onClick={onClose}
+          />
+
+          <motion.article
+            className="relative w-full max-w-5xl max-h-[88vh] overflow-hidden rounded-2xl"
+            style={{
+              background: "var(--card)",
+              border: "1px solid var(--glass-hover-border)",
+              boxShadow: "0 30px 90px rgba(0,0,0,0.55), 0 0 60px var(--glass-hover-shadow)",
+            }}
+            initial={{ opacity: 0, y: 34, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 24, scale: 0.97 }}
+            transition={{ duration: 0.28, ease: "easeOut" }}
+          >
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr] max-h-[88vh] overflow-y-auto">
+              <div className="relative min-h-[260px] lg:min-h-full overflow-hidden" style={{ background: "var(--surface-subtle)" }}>
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="h-full min-h-[260px] w-full object-cover"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(to bottom, rgba(0,0,0,0.04), rgba(0,0,0,0.38)), radial-gradient(circle at 20% 15%, rgba(255,95,0,0.22), transparent 32%)",
+                  }}
+                />
+                <div className="absolute left-5 top-5 flex flex-wrap gap-2">
+                  <span
+                    className="rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide backdrop-blur-md"
+                    style={{
+                      background: "var(--badge-overlay-bg)",
+                      color: "var(--primary)",
+                      border: "1px solid var(--glass-hover-border)",
+                    }}
+                  >
+                    {project.year}
+                  </span>
+                  <span
+                    className="rounded-full px-3 py-1 text-[11px] font-medium tracking-wide backdrop-blur-md"
+                    style={{
+                      background: "var(--badge-overlay-bg)",
+                      color: "var(--foreground)",
+                      border: "1px solid var(--border-subtle)",
+                    }}
+                  >
+                    {project.category}
+                  </span>
+                </div>
+              </div>
+
+              <div className="relative p-6 sm:p-8 lg:p-10">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-xl transition-all duration-200 hover:scale-105"
+                  style={{
+                    background: "var(--surface-subtle)",
+                    border: "1px solid var(--border-subtle)",
+                    color: "var(--foreground)",
+                  }}
+                  aria-label="Close project details"
+                >
+                  <X size={18} />
+                </button>
+
+                <div className="pr-10">
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em]" style={{ color: "var(--secondary)" }}>
+                    {project.category}
+                  </p>
+                  <h3
+                    id="project-modal-title"
+                    className="font-[var(--font-display)] text-2xl sm:text-3xl font-bold leading-tight"
+                    style={{ color: "var(--foreground)" }}
+                  >
+                    {project.title}
+                  </h3>
+                  <p className="mt-2 text-sm font-medium" style={{ color: "var(--secondary)" }}>
+                    {project.subtitle}
+                  </p>
+                </div>
+
+                <div className="mt-8 space-y-6">
+                  <div>
+                    <h4 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--muted-foreground)" }}>
+                      Overview
+                    </h4>
+                    <p className="text-sm leading-7" style={{ color: "var(--muted-foreground)" }}>
+                      {project.description}
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="rounded-xl p-4" style={{ background: "var(--surface-subtle)", border: "1px solid var(--border-subtle)" }}>
+                      <div className="text-[11px] uppercase tracking-[0.18em]" style={{ color: "var(--muted-foreground)" }}>
+                        Year
+                      </div>
+                      <div className="mt-1 text-sm font-semibold" style={{ color: "var(--foreground)" }}>
+                        {project.year}
+                      </div>
+                    </div>
+                    <div className="rounded-xl p-4" style={{ background: "var(--surface-subtle)", border: "1px solid var(--border-subtle)" }}>
+                      <div className="text-[11px] uppercase tracking-[0.18em]" style={{ color: "var(--muted-foreground)" }}>
+                        Type
+                      </div>
+                      <div className="mt-1 text-sm font-semibold" style={{ color: "var(--foreground)" }}>
+                        {project.category}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--muted-foreground)" }}>
+                      Technology Stack
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {project.techStack.map((tag) => (
+                        <Badge key={tag} variant="outline" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={onClose}
+                    className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 hover:scale-[1.02]"
+                    style={{
+                      background: "linear-gradient(135deg, var(--primary), var(--secondary))",
+                      color: "#fff",
+                      boxShadow: "0 12px 32px rgba(255, 95, 0, 0.22)",
+                    }}
+                  >
+                    Back to projects
+                    <ArrowUpRight size={16} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.article>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 export default function ProjectsSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   // Track scroll progress of the tall outer container
   const { scrollYProgress } = useScroll({
@@ -226,6 +401,26 @@ export default function ProjectsSection() {
     [0, 1],
     [0, -(totalRowWidth - window.innerWidth + 80)] // 80px padding buffer
   );
+
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedProject(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedProject]);
 
   return (
     <section
@@ -257,10 +452,13 @@ export default function ProjectsSection() {
             style={{ x }}
           >
             {projects.map((project) => (
-              <div
+              <button
+                type="button"
                 key={project.id}
-                className="pointer-events-auto group flex-shrink-0 glass rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_var(--glass-hover-shadow)]"
+                onClick={() => setSelectedProject(project)}
+                className="pointer-events-auto group flex-shrink-0 glass rounded-2xl overflow-hidden text-left transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_0_30px_var(--glass-hover-shadow)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
                 style={{ width: `${CARD_W}px`, borderColor: "var(--border-subtle)" }}
+                aria-label={`Open details for ${project.title}`}
               >
                 {/* Image */}
                 <div className="relative w-full aspect-[16/10] overflow-hidden" style={{ background: "var(--surface-subtle)" }}>
@@ -313,12 +511,19 @@ export default function ProjectsSection() {
                       </Badge>
                     ))}
                   </div>
+
+                  <div className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold transition-colors duration-300 group-hover:text-[var(--primary)]" style={{ color: "var(--muted-foreground)" }}>
+                    View full details
+                    <ArrowUpRight size={13} />
+                  </div>
                 </div>
-              </div>
+              </button>
             ))}
           </motion.div>
         </div>
       </div>
+
+      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
     </section>
   );
 }
