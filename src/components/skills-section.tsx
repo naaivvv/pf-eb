@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import antigravityIcon from "@/assets/icons/antigravity.svg";
 import lovableIcon from "@/assets/icons/lovable.svg";
+import oracleIcon from "@/assets/icons/oracle.svg";
 import powerbiIcon from "@/assets/icons/powerbi.svg";
 
 interface SkillsSectionProps {
@@ -38,7 +39,7 @@ const allSkills: Skill[] = [
   { name: "Next.js", cdn: "nextdotjs", color: "#FFFFFF" },
   { name: "Node.js", cdn: "nodedotjs", color: "#5FA04E" },
   { name: "OpenCV", cdn: "opencv", color: "#5C3EE8" },
-  { name: "Oracle DB", cdn: "oracle", color: "#F80000" },
+  { name: "Oracle DB", local: oracleIcon, color: "#F80000" },
   { name: "PHP", cdn: "php", color: "#777BB4" },
   { name: "Plotly Dash", cdn: "plotly", color: "#3F4F75" },
   { name: "PostgreSQL", cdn: "postgresql", color: "#4169E1" },
@@ -83,7 +84,7 @@ export default function SkillsSection({ isDark }: SkillsSectionProps) {
               <span style={{ color: "var(--primary)" }}>Arsenal</span>
             </h2>
             <div className="w-20 h-0.5 mx-auto mb-4" style={{ background: "var(--primary)" }} />
-          <p className="text-sm max-w-lg mx-auto" style={{ color: "var(--muted-foreground)" }}>
+            <p className="text-sm max-w-lg mx-auto" style={{ color: "var(--muted-foreground)" }}>
               Tools, frameworks, and platforms I use for AI systems, automation, edge devices, and product interfaces.
             </p>
           </motion.div>
