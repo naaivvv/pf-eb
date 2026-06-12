@@ -232,7 +232,7 @@ function ProjectModal({
           />
 
           <motion.article
-            className="relative w-full max-w-5xl max-h-[88vh] overflow-hidden rounded-2xl"
+            className="relative w-full max-w-6xl max-h-[88dvh] overflow-hidden rounded-2xl"
             style={{
               background: "var(--card)",
               border: "1px solid var(--glass-hover-border)",
@@ -243,18 +243,41 @@ function ProjectModal({
             exit={{ opacity: 0, y: 24, scale: 0.97 }}
             transition={{ duration: 0.28, ease: "easeOut" }}
           >
-            <div className="grid lg:grid-cols-[1.05fr_0.95fr] max-h-[88vh] overflow-y-auto">
-              <div className="relative min-h-[260px] lg:min-h-full overflow-hidden" style={{ background: "var(--surface-subtle)" }}>
+            <button
+              type="button"
+              onClick={onClose}
+              className="absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-xl transition-all duration-200 hover:scale-105 active:scale-[0.98]"
+              style={{
+                background: "rgba(12, 10, 18, 0.72)",
+                border: "1px solid var(--border-subtle-hover)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)",
+                color: "var(--foreground)",
+                backdropFilter: "blur(14px)",
+              }}
+              aria-label="Close project details"
+            >
+              <X size={18} />
+            </button>
+
+            <div data-lenis-prevent className="max-h-[88dvh] overflow-y-auto">
+              <div
+                className="relative overflow-hidden"
+                style={{
+                  background:
+                    "radial-gradient(circle at 18% 12%, rgba(255,95,0,0.18), transparent 34%), var(--surface-subtle)",
+                  borderBottom: "1px solid var(--border-subtle)",
+                }}
+              >
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="h-full min-h-[260px] w-full object-cover"
+                  className="block h-auto w-full object-contain"
                 />
                 <div
-                  className="absolute inset-0"
+                  className="pointer-events-none absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(to bottom, rgba(0,0,0,0.04), rgba(0,0,0,0.38)), radial-gradient(circle at 20% 15%, rgba(255,95,0,0.22), transparent 32%)",
+                      "linear-gradient(to bottom, rgba(0,0,0,0.10), transparent 22%, rgba(0,0,0,0.16))",
                   }}
                 />
                 <div className="absolute left-5 top-5 flex flex-wrap gap-2">
@@ -281,49 +304,33 @@ function ProjectModal({
                 </div>
               </div>
 
-              <div className="relative p-6 sm:p-8 lg:p-10">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-xl transition-all duration-200 hover:scale-105"
-                  style={{
-                    background: "var(--surface-subtle)",
-                    border: "1px solid var(--border-subtle)",
-                    color: "var(--foreground)",
-                  }}
-                  aria-label="Close project details"
-                >
-                  <X size={18} />
-                </button>
-
-                <div className="pr-10">
-                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em]" style={{ color: "var(--secondary)" }}>
-                    {project.category}
-                  </p>
-                  <h3
-                    id="project-modal-title"
-                    className="font-[var(--font-display)] text-2xl sm:text-3xl font-bold leading-tight"
-                    style={{ color: "var(--foreground)" }}
-                  >
-                    {project.title}
-                  </h3>
-                  <p className="mt-2 text-sm font-medium" style={{ color: "var(--secondary)" }}>
-                    {project.subtitle}
-                  </p>
-                </div>
-
-                <div className="mt-8 space-y-6">
+              <div className="p-6 sm:p-8 lg:p-10">
+                <div className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)]">
                   <div>
-                    <h4 className="mb-2 text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--muted-foreground)" }}>
-                      Overview
-                    </h4>
-                    <p className="text-sm leading-7" style={{ color: "var(--muted-foreground)" }}>
-                      {project.description}
+                    <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em]" style={{ color: "var(--secondary)" }}>
+                      {project.category}
+                    </p>
+                    <h3
+                      id="project-modal-title"
+                      className="max-w-3xl font-[var(--font-display)] text-2xl sm:text-4xl font-bold leading-tight"
+                      style={{ color: "var(--foreground)" }}
+                    >
+                      {project.title}
+                    </h3>
+                    <p className="mt-3 text-sm sm:text-base font-medium" style={{ color: "var(--secondary)" }}>
+                      {project.subtitle}
                     </p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="rounded-xl p-4" style={{ background: "var(--surface-subtle)", border: "1px solid var(--border-subtle)" }}>
+                    <div
+                      className="rounded-xl p-4"
+                      style={{
+                        background: "var(--surface-subtle)",
+                        border: "1px solid var(--border-subtle)",
+                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+                      }}
+                    >
                       <div className="text-[11px] uppercase tracking-[0.18em]" style={{ color: "var(--muted-foreground)" }}>
                         Year
                       </div>
@@ -331,7 +338,14 @@ function ProjectModal({
                         {project.year}
                       </div>
                     </div>
-                    <div className="rounded-xl p-4" style={{ background: "var(--surface-subtle)", border: "1px solid var(--border-subtle)" }}>
+                    <div
+                      className="rounded-xl p-4"
+                      style={{
+                        background: "var(--surface-subtle)",
+                        border: "1px solid var(--border-subtle)",
+                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+                      }}
+                    >
                       <div className="text-[11px] uppercase tracking-[0.18em]" style={{ color: "var(--muted-foreground)" }}>
                         Type
                       </div>
@@ -340,33 +354,53 @@ function ProjectModal({
                       </div>
                     </div>
                   </div>
+                </div>
 
-                  <div>
-                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--muted-foreground)" }}>
-                      Technology Stack
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {project.techStack.map((tag) => (
-                        <Badge key={tag} variant="outline" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 hover:scale-[1.02]"
+                <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)]">
+                  <div
+                    className="rounded-2xl p-5 sm:p-6"
                     style={{
-                      background: "linear-gradient(135deg, var(--primary), var(--secondary))",
-                      color: "#fff",
-                      boxShadow: "0 12px 32px rgba(255, 95, 0, 0.22)",
+                      background: "var(--surface-subtle)",
+                      border: "1px solid var(--border-subtle)",
+                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
                     }}
                   >
-                    Back to projects
-                    <ArrowUpRight size={16} />
-                  </button>
+                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--muted-foreground)" }}>
+                      Overview
+                    </h4>
+                    <p className="max-w-[72ch] text-sm leading-7" style={{ color: "var(--muted-foreground)" }}>
+                      {project.description}
+                    </p>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--muted-foreground)" }}>
+                        Technology Stack
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {project.techStack.map((tag) => (
+                          <Badge key={tag} variant="outline" className="text-xs">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={onClose}
+                      className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                      style={{
+                        background: "linear-gradient(135deg, var(--primary), var(--secondary))",
+                        color: "#fff",
+                        boxShadow: "0 12px 32px rgba(255, 95, 0, 0.22)",
+                      }}
+                    >
+                      Back to projects
+                      <ArrowUpRight size={16} />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
