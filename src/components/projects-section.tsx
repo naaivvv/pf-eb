@@ -21,11 +21,51 @@ const projects: Project[] = [
     id: "kidsentry",
     title: "KidSentry",
     subtitle: "Hybrid Edge-Cloud AI for Child Safety",
-    description: "Thesis project architecting a real-time hazard detection system for indoor child environments. Combines edge computing with cloud AI pipelines using YOLO object detection, TensorFlow models, and OpenCV — all running on embedded hardware to minimize latency for safety-critical alerts.",
-    techStack: ["Python", "YOLO", "TensorFlow", "OpenCV", "Raspberry Pi", "Edge AI"],
+    description: "Real-time edge AI hazard detection system using YOLOv11 optimized with NCNN on Raspberry Pi 5. Designed autonomous hardware intervention workflows that trigger wireless electrical shutdown in about 170ms and synchronize Firebase mobile alerts without interrupting local inference.",
+    techStack: ["YOLOv11", "NCNN", "Raspberry Pi 5", "Firebase", "Edge AI"],
     category: "AI / ML",
     year: "2026",
     image: getProjectImage("kidsentry.png"),
+  },
+  {
+    id: "ai-business-ops",
+    title: "AI Business Ops Workspace",
+    subtitle: "Modular AI-Powered Operations Automation",
+    description: "Architected a 19-workflow n8n Cloud automation system with modular sub-workflows for AI calls, deduplication, audit logging, and global error handling. Built a Supabase pgvector RAG knowledge base with content-hash change detection and human-in-the-loop Slack approvals.",
+    techStack: ["n8n", "Supabase", "pgvector", "RAG", "Slack"],
+    category: "AI Automation",
+    year: "2026",
+    image: getProjectImage("placeholder.svg"),
+  },
+  {
+    id: "rfp-architect",
+    title: "Autonomous B2B RFP Response Architect",
+    subtitle: "Multi-Agent Proposal Generation",
+    description: "Built an autonomous multi-agent pipeline using CrewAI, Python, FastAPI, and Supabase pgvector to ingest complex RFPs, extract constraints, and generate compliant proposals. Added a Next.js human-in-the-loop dashboard for review, sync, and document export.",
+    techStack: ["CrewAI", "FastAPI", "Next.js", "Supabase", "RAG"],
+    category: "Agentic AI",
+    year: "2026",
+    image: getProjectImage("placeholder.svg"),
+  },
+  {
+    id: "voice-dispatcher",
+    title: "Stateful Voice-to-Voice Logistics Dispatcher",
+    subtitle: "LLM-Powered Dispatch Agent",
+    description: "Engineered a real-time voice orchestration backend with Node.js and WebSockets for full-duplex audio streaming and barge-in handling. Developed a LangChain dispatch agent that parses driver voice updates and modifies ETA and routing data in Supabase PostgreSQL.",
+    techStack: ["Node.js", "WebSockets", "LangChain", "Supabase", "PostgreSQL"],
+    category: "Agentic AI",
+    year: "2026",
+    image: getProjectImage("placeholder.svg"),
+  },
+  {
+    id: "lead-routing",
+    title: "Event-Driven B2B Lead Intelligence",
+    subtitle: "Async Lead Scoring & Routing Pipeline",
+    description: "Architected an asynchronous lead enrichment and scoring pipeline using Next.js App Router, Supabase PostgreSQL, and n8n. Combined programmatic ICP rules with Gemini LLM prompt analysis, then routed high-value buyers through Telegram alerts and Gmail nurture flows.",
+    techStack: ["Next.js", "Supabase", "n8n", "Gemini", "Telegram"],
+    category: "AI Automation",
+    year: "2026",
+    image: getProjectImage("placeholder.svg"),
   },
   {
     id: "brightedge",
@@ -206,7 +246,7 @@ export default function ProjectsSection() {
           </h2>
           <div className="w-20 h-0.5 mx-auto mb-4" style={{ background: "var(--primary)" }} />
           <p className="text-sm max-w-xl mx-auto" style={{ color: "var(--muted-foreground)" }}>
-            A curated selection of my work spanning AI, IoT, web development, and data engineering.
+            A curated selection of my work spanning agentic AI, edge computer vision, automation, IoT, and full-stack systems.
           </p>
         </div>
 

@@ -68,7 +68,7 @@ export default function ContactSection() {
           </h2>
           <div className="w-20 h-0.5 mx-auto mb-6" style={{ background: "var(--primary)" }} />
           <p className="text-base leading-relaxed" style={{ color: "var(--muted-foreground)" }}>
-            Whether it's an Edge AI prototype, an automated workflow, or a full-stack web application —
+            Whether it's an LLM workflow, RAG system, Edge AI prototype, or full-stack application —
             I'm always open to challenging projects and collaborations.
           </p>
         </motion.div>

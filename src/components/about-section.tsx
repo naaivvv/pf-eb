@@ -17,7 +17,7 @@ import portraitImg from "@/assets/portrait.png";
 
 const quickStats = [
   { label: "Years Experience", value: "3+", icon: Sparkles },
-  { label: "Projects Delivered", value: "10+", icon: Cpu },
+  { label: "AI & IoT Builds", value: "15+", icon: Cpu },
   { label: "DOST Scholar", value: "✓", icon: Award },
 ];
 
@@ -30,30 +30,27 @@ interface Certification {
 
 const certifications: Certification[] = [
   // Awards & Honors
-  { title: "2× DepEd Division Technolympics Web Page Designing Contest Champion", issuer: "DepEd", date: "", variant: "default" },
+  { title: "DOST Academic Scholar", issuer: "DOST", date: "", variant: "default" },
   { title: "Class Valedictorian (JHS & SHS)", issuer: "Academic", date: "", variant: "default" },
-  { title: "DOST-SEI JLSS Scholar", issuer: "DOST", date: "", variant: "default" },
 
   // Language & Proficiency
-  { title: "HSK Level 4 — Chinese Proficiency", issuer: "CLEC", date: "Dec 2021", variant: "secondary" },
+  { title: "HSK Level 4 - Chinese Proficiency", issuer: "BLCU", date: "Jul 2021", variant: "secondary" },
 
   // Technical Certifications
-  { title: "Vibe Coding — L2: Silver", issuer: "Lovable", date: "Mar 2026", variant: "accent" },
-  { title: "Career Accelerator: Technical Skills That Actually Matter", issuer: "TUP", date: "Feb 2026", variant: "accent" },
-  { title: "The Multi-Hyphenate Engineer — Beyond the Code", issuer: "TUP", date: "Mar 2026", variant: "accent" },
-  { title: "Digital Footprint: Impact of CpE on Modern Society", issuer: "TUP", date: "Feb 2026", variant: "accent" },
-  { title: "GIS Techniques & Spatial Data Analysis", issuer: "ICpEP.se-R6", date: "Mar 2023", variant: "accent" },
+  { title: "Certified Google AI Professional", issuer: "Google / Coursera", date: "", variant: "accent" },
+  { title: "Crash Course in Python", issuer: "Google / Coursera", date: "", variant: "accent" },
+  { title: "Advanced Commands in Linux", issuer: "Coursera", date: "", variant: "accent" },
+  { title: "Azure AI Fundamentals", issuer: "TESDA / Microsoft", date: "", variant: "accent" },
 
   // Community & Events
-  { title: "Google DevFest 2023 Attendee", issuer: "GDG", date: "Oct 2023", variant: "outline" },
-  { title: "STEM Capstone Research Consultant", issuer: "Academic", date: "", variant: "outline" },
+  { title: "2x DepEd Division Technolympics Web Page Designing Champion", issuer: "DepEd", date: "", variant: "outline" },
 ];
 
 const education = [
   {
     degree: "BS Computer Engineering",
     school: "Technological University of the Philippines - Visayas",
-    period: "2022 – Present",
+    period: "Sep 2022 - Jun 2026",
     detail: "Thesis: KidSentry — Hybrid Edge-Cloud AI",
     color: "var(--primary)",
     icon: GraduationCap,
@@ -61,8 +58,8 @@ const education = [
   {
     degree: "Mandarin Language Program",
     school: "Beijing Language & Culture Univ.",
-    period: "2021 – 2022",
-    detail: "HSK4 Proficiency Achieved",
+    period: "Sep 2020 - Jul 2021",
+    detail: "HSK 4 Proficiency Achieved",
     color: "var(--accent)",
     icon: Languages,
   },
@@ -141,16 +138,14 @@ export default function AboutSection() {
             <div className="lg:col-span-8 flex flex-col justify-between gap-6">
               <div className="glass rounded-2xl p-8">
                 <p className="text-base leading-relaxed mb-6" style={{ color: "var(--muted-foreground)" }}>
-                  Versatile Computer Engineer skilled in bridging the gap between hardware and software development.
-                  Specialized in creating intelligent applications that analyze data and automate tasks to improve
-                  safety and decision-making. Strong background in research and development, with a track record
-                  of delivering successful projects in dynamic, fast-paced environments.
+                  Computer Engineer focused on building AI systems that integrate LLM orchestration, edge AI,
+                  workflow automation, and real-time hardware interaction. I develop intelligent pipelines that
+                  combine computer vision, embedded systems, and autonomous decision-making.
                 </p>
                 <p className="text-base leading-relaxed" style={{ color: "var(--muted-foreground)" }}>
-                  Currently pursuing a{" "}
-                  <span style={{ color: "var(--secondary)" }}>BS in Computer Engineering</span> at
-                  Technological University of the Philippines - Visayas while actively taking on freelance R&D consulting work — architecting thesis systems
-                  involving embedded AI, IoT automation, and intelligent monitoring solutions.
+                  My work spans production full-stack systems, RAG frameworks, AI automation workflows, and
+                  embedded deployments on devices like Raspberry Pi, ESP32, STM32, and Arduino, with a strong
+                  bias toward practical systems that can operate in the field.
                 </p>
               </div>
 

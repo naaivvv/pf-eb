@@ -1,72 +1,98 @@
 export const CV_CONTEXT = `
 # EDWIN JR. P. BAYOG
-**Role**: Computer Engineer | AI & Agentic Developer | IoT Architect | Fullstack Developer
+**Role**: Computer Engineer | AI & Machine/Deep Learning Engineer | Edge Systems & Full-Stack Developer
+**Location**: Negros Occidental, Philippines
+**Contact**: edwinbayog22@gmail.com | +63 993-789-3171
+**Links**: LinkedIn linkedin.com/in/edwinbayog07 | Portfolio edwin-bayog.vercel.app | GitHub github.com/naaivvv
 
 ## PROFESSIONAL SUMMARY
-Edwin is a forward-thinking Computer Engineer with a profound passion for AI, agentic development, and building robust, scalable full-stack applications. He has strong expertise in Computer Vision, LLM-powered agents, and IoT systems. Edwin is also experienced in deploying optimized ML models on edge hardware, and is highly passionate about Agentic AI development, Large Language Models (LLMs), and automating complex developer workflows.
+Edwin is a Computer Engineer focused on building AI systems that integrate LLM orchestration, edge AI, workflow automation, and real-time hardware interaction. He develops intelligent pipelines combining computer vision, embedded systems, autonomous decision-making, full-stack applications, and production analytics.
 
-## TECHNICAL ARSENAL
-*   **Software Engineering & Web**: Python, TypeScript, C++, React, Next.js, Node.js, Vite, Tailwind CSS, shadcn/ui, Flutter.
-*   **AI, ML & Computer Vision**: Deep expertise in training and deploying Computer Vision models (YOLO architectures, LPRNet, PaddleOCR). Skilled in integrating LLMs and Agentic workflows via OpenRouter API and RAG architectures. Proficient in TensorFlow Lite, OpenCV, and ElevenLabs AI voice synthesis.
-*   **Agentic AI & Dev Tools**: CrewAI multi-agent orchestration, Claude Code, Antigravity (Google DeepMind), Lovable AI app builder, Google Stitch UI design, advanced Prompt Engineering.
-*   **Hardware & IoT Edge Computing**: Extensive hands-on experience with Raspberry Pi (specifically optimizing for RPi 5), ESP32, Arduino, and custom microcontroller integrations. Adept at interfacing complex sensor arrays with cloud backends.
-*   **Data & Infrastructure**: Docker containerization, Supabase, Firebase, Render cloud deployment, Power BI analytics & dashboards, RESTful API design, SaaS architecture.
+## TECHNICAL SKILLS
+* **Agentic AI & Intelligent Systems**: LangChain, CrewAI, LangGraph, n8n, RAG pipelines, tool calling, multi-agent systems, workflow automation, vector databases, AI API integration.
+* **Machine Learning & Computer Vision**: TensorFlow, PyTorch, YOLOv11, OpenCV, real-time inference, edge AI optimization, PaddleOCR.
+* **Frontend & Interfaces**: React, Next.js, Flutter, Tailwind CSS.
+* **Backend & Infrastructure**: Python, Node.js, FastAPI, Firebase, Supabase, Microsoft SQL Server, Oracle DB, PostgreSQL, MySQL, Docker, Linux, REST APIs.
+* **Embedded Systems & IoT**: Raspberry Pi, ESP32, STM32, Arduino, industrial sensor integration, PCB design, edge device deployment.
+* **DevOps & Data**: Docker, Git/GitHub, Linux/Shell scripting, Power BI, Plotly Dash.
 
-## PROJECTS & ACHIEVEMENTS
-Edwin has built a diverse portfolio spanning AI/ML, IoT, web development, and data engineering. Below are selected highlights — he has additional projects not listed here.
+## WORK EXPERIENCE
+**AI Solutions Engineer / Full-Stack Developer — ByaheNow.ph (Jun 2026 - Present, Hybrid/Part-time)**
+* Engineered unified data contracts such as BusModel and TripModel plus reactive Riverpod state management to synchronize real-time transit data across cross-platform Flutter apps and a Python Plotly Dash fleet analytics dashboard.
+* Built operational analytics pipelines to aggregate and visualize transit metrics, including on-time performance, route-level capacity utilization, and active delay tracking.
 
-### AI & Computer Vision
-*   **KidSentry (2026, Thesis)**: Hybrid edge-cloud AI system for child safety. Real-time hazard detection using YOLO, TensorFlow, and OpenCV on Raspberry Pi with cloud fallback.
-*   **BrightEdge (2026)**: Eye disease pre-diagnosis system using EfficientNetV2-S to detect Cataract, Diabetic Retinopathy, and Glaucoma from fundus images with HIPAA-compliant data handling.
-*   **SNAID (2026)**: Snake identification system for Negros Occidental using a 2-stage YOLO + MobileNet pipeline on Raspberry Pi 5 with a React desktop interface.
-*   **Brain Tumor MRI Classification (2025)**: Deep learning model for classifying brain MRI scans to assist medical professionals.
-*   **Sentiment Analysis Pipeline (2025)**: NLP pipeline using Word2Vec + TensorFlow, Dockerized and deployed on HuggingFace via Flask.
-*   **Light Intensity & Pollution Predictor (2025)**: Deep learning regression model for environmental monitoring and pollution prediction.
+**Freelance Full-Stack Developer / Technical Consultant (Oct 2024 - Present, Remote)**
+* Designed and deployed custom Retrieval-Augmented Generation frameworks, integrating LLMs with vector databases for context-aware semantic search and document intelligence.
+* Developed end-to-end intelligent automation workflows using APIs, Python scripting, and AI agents to streamline complex data processing.
+* Built and optimized real-time computer vision inference models and automated image-processing pipelines on specialized edge hardware and IoT devices.
 
-### IoT & Embedded Systems
-*   **IoT Vehicle Control (2025)**: Wireless control system retrofitting legacy vehicles with mobile app control, custom PCB design, and embedded microcontrollers.
-*   **Industrial Stack Gas Analyzer (2025)**: Real-time gas monitoring for sugarcane mills with distributed IoT sensors and automated alerting.
-*   **Smart 4-Gang Outlet System (2024)**: IoT smart outlet using PIC18F4550 + ESP32 with temperature monitoring and LCD interface.
+**Engineering Intern — CMDSI (Apr 2026 - Jun 2026, On-site)**
+* Developed AI-integrated edge computing solutions, including a custom YOLO computer vision pipeline for vehicle verification combined with PaddleOCR optimized for Philippine license plates.
+* Authored Python scripts to interface with embedded hardware, including automatic boom barriers, ticket machines, and ALPR systems.
+* Built cross-platform Flutter monitoring applications connected to Oracle Database through RESTful APIs.
+* Assisted engineering teams with rapid prototyping for strict regulatory and technical standards for BIR accreditation.
 
-### Full-Stack & Web Development
-*   **Agentic Portfolio Assistant (This Website)**: AI-driven conversational portfolio using React, Thermal Magma theme, and OpenRouter LLM backend.
-*   **CHMSU CIER Management System (2024)**: Administrative platform for CHMSU using Laravel and Livewire.
-*   **WireDesk CRM (2024)**: Customer relationship management system built with Laravel and Vite.
-*   **ACROSYS (2023)**: Event management app for large-scale crowd tracking and attendee syncing.
-*   **Happy-Teeth Dental Clinic (2023)**: Clinic management system with scheduling and record keeping.
+**System Developer & Data Analyst Intern — yieldWerx Semiconductor (Jul 2024 - Sep 2024, Remote)**
+* Engineered SQL-based data pipelines and Python automation scripts to streamline operational analytics for semiconductor data systems.
+* Architected Power BI dashboards and automated reporting tools that increased the precision and accessibility of operational metrics.
 
-### Data Engineering
-*   **yieldWerx Analytics (2024)**: Data-driven reporting tools for yieldWerx Semiconductor — SQL optimization, analytical dashboards, and ETL pipelines.
+**Technical VA / Shopify Web Developer — LuxeEclat (Sep 2023 - Apr 2024, Remote)**
+* Configured backend systems and managed technical web infrastructure for e-commerce deployments aligned with business deliverables.
 
-## EXPERIENCE
-**AI/IoT Engineering Intern — Clever Minds Digital Solutions (Apr 2026 – Jun 2026)**
-*   Developed AI-driven IoT solutions and automation workflows using agentic AI tools.
-*   Collaborated on edge computing deployments and smart device integrations.
+**IT Infrastructure Intern — Bacolod City Government Center, MITCS (Jul 2023 - Aug 2023, On-site)**
+* Diagnosed and resolved hardware and system-level issues and supported maintenance protocols for municipal IT infrastructure.
 
-**Freelance AI & IoT Solutions Developer (2023 - Present)**
-*   Edwin operates as an independent consultant and developer, delivering bespoke hardware and software solutions. 
-*   He frequently architects automated data collection systems and custom computer vision applications, helping clients digitize and automate manual processes.
+## KEY PROJECTS
+**KidSentry: Hybrid Edge-Cloud AI for Child Safety**
+* Real-time edge AI hazard detection system using YOLOv11 optimized with NCNN on Raspberry Pi 5.
+* Implements autonomous hardware intervention workflows capable of triggering wireless electrical shutdown within about 170ms after hazardous child-object interaction detection.
+* Uses Firebase edge-cloud synchronization for real-time mobile alerts without interrupting local inference.
+* Optimized full inference-to-actuation pipeline to about 270ms total latency through lightweight computer vision processing and parallel task execution.
 
-## ACADEMIC BACKGROUND
+**AI Business Ops Workspace**
+* Modular AI-powered operations automation system with 19 n8n Cloud workflows.
+* Uses modular sub-workflows for AI calls, deduplication, audit logging, and global error handling.
+* Includes a Supabase pgvector RAG knowledge base with 384D embedding storage and content-hash change detection.
+* Adds webhook-gated human-in-the-loop approvals and Slack routing to prevent unvalidated AI-generated drafts from sending.
+
+**Autonomous B2B RFP Response Architect**
+* Multi-agent CrewAI, Python, and FastAPI pipeline that ingests complex RFPs, extracts constraints, and generates compliant proposals through a Supabase pgvector RAG system.
+* Full-stack Next.js human-in-the-loop dashboard with real-time syncing, event-driven automation, proposal review, and document export.
+
+**Stateful Voice-to-Voice Logistics Dispatcher**
+* Real-time voice orchestration backend using Node.js and WebSockets for full-duplex audio streaming and interruption handling.
+* LangChain-powered dispatch agent parses unstructured driver voice updates and dynamically modifies ETA and route data in Supabase PostgreSQL.
+
+**Event-Driven B2B Lead Intelligence & Routing Pipeline**
+* Asynchronous lead enrichment and scoring pipeline using Next.js App Router, Supabase PostgreSQL, and n8n.
+* Dual-scoring engine combines programmatic ICP rules with Gemini LLM prompt analysis.
+* Three-tier routing triggers Telegram alerts for enterprise buyers and automated Gmail nurture flows.
+
+**Additional AI, IoT, and Web Projects**
+* BrightEdge: EfficientNetV2-S eye disease pre-diagnosis system for Cataract, Diabetic Retinopathy, and Glaucoma from fundus images.
+* SNAID: Raspberry Pi 5 snake identification system using YOLO and MobileNet with React desktop interface and Python backend.
+* IoT Vehicle Control: Wireless mobile-app control retrofit for legacy vehicles with PCB design and embedded microcontrollers.
+* Industrial Stack Gas Analyzer: Real-time gas monitoring system for sugarcane mills with distributed IoT sensors and alerts.
+* Sentiment Analysis Pipeline: Word2Vec and TensorFlow NLP classifier containerized with Docker and deployed through Flask.
+* Light Intensity & Pollution Predictor: Deep learning regression model for environmental monitoring.
+* Brain Tumor MRI Classification: Deep learning model for medical image classification.
+* Smart 4-Gang Outlet System: PIC18F4550 and ESP32 IoT outlet with temperature monitoring and LCD interface.
+* CHMSU CIER Management System, WireDesk CRM, ACROSYS, and Happy-Teeth Dental Clinic web systems.
+
+## EDUCATION
 **Bachelor of Science in Computer Engineering**
-*   **Institution**: Technological University of the Philippines - Visayas (2022 – Present)
-*   **Focus Areas**: Machine Learning, Embedded Systems, Data Structures, and Software Engineering.
-*   Edwin leveraged his strong academic foundation to rapidly master cutting-edge modern tech stacks and AI frameworks independently.
+Technological University of the Philippines - Visayas (Sep 2022 - Jun 2026)
+* Thesis: "KidSentry: Hybrid Edge-Cloud AI Solution for Real-Time Hazard Detection in Indoor Environments for Child Safety."
 
-**Mandarin Language Program**
-*   **Institution**: Beijing Language & Culture University (2021 – 2022)
-*   **Achievement**: Achieved HSK Level 4 Chinese Proficiency.
+**Mandarin Language Program (HSK 4)**
+Beijing Language and Culture University (Sep 2020 - Jul 2021)
+* Achieved HSK 4 proficiency, demonstrating the ability to discuss a wide range of topics and communicate fluently in Mandarin.
 
 ## CERTIFICATIONS & AWARDS
-*   **DOST-SEI JLSS Scholar** (DOST)
-*   **Class Valedictorian (JHS & SHS)** (Academic)
-*   **2× DepEd Division Technolympics Web Page Designing Contest Champion** (DepEd)
-*   **Vibe Coding — L2: Silver** (Lovable, Mar 2026)
-*   **Career Accelerator: Technical Skills That Actually Matter** (TUP, Feb 2026)
-*   **The Multi-Hyphenate Engineer — Beyond the Code** (TUP, Mar 2026)
-*   **Digital Footprint: Impact of CpE on Modern Society** (TUP, Feb 2026)
-*   **GIS Techniques & Spatial Data Analysis** (ICpEP.se-R6, Mar 2023)
-*   **Google DevFest 2023 Attendee** (GDG, Oct 2023)
-*   **STEM Capstone Research Consultant** (Academic)
+* Certified Google AI Professional - Google / Coursera
+* Crash Course in Python - Google / Coursera
+* Advanced Commands in Linux - Coursera
+* Microsoft Artificial Intelligence Course: Azure AI Fundamentals - TESDA
+* DOST Academic Scholar
+* Class Valedictorian (JHS & SHS)
 `;
-

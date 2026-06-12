@@ -24,10 +24,12 @@ const allSkills: Skill[] = [
   { name: "Figma", cdn: "figma", color: "#F24E1E" },
   { name: "Firebase", cdn: "firebase", color: "#DD2C00" },
   { name: "Flutter", cdn: "flutter", color: "#02569B" },
+  { name: "FastAPI", cdn: "fastapi", color: "#009688" },
   { name: "Git", cdn: "git", color: "#F05032" },
   { name: "GitHub", cdn: "github", color: "#FFFFFF" },
   { name: "Google Stitch", cdn: "google", color: "#4285F4" },
   { name: "LangChain", cdn: "langchain", color: "#FFFFFF" },
+  { name: "LangGraph", cdn: "langgraph", color: "#FFFFFF" },
   { name: "Laravel", cdn: "laravel", color: "#FF2D20" },
   { name: "Linux", cdn: "linux", color: "#FCC624" },
   { name: "Lovable", local: lovableIcon, color: "#FF5757" },
@@ -36,7 +38,10 @@ const allSkills: Skill[] = [
   { name: "Next.js", cdn: "nextdotjs", color: "#FFFFFF" },
   { name: "Node.js", cdn: "nodedotjs", color: "#5FA04E" },
   { name: "OpenCV", cdn: "opencv", color: "#5C3EE8" },
+  { name: "Oracle DB", cdn: "oracle", color: "#F80000" },
   { name: "PHP", cdn: "php", color: "#777BB4" },
+  { name: "Plotly Dash", cdn: "plotly", color: "#3F4F75" },
+  { name: "PostgreSQL", cdn: "postgresql", color: "#4169E1" },
   { name: "Power BI", local: powerbiIcon, color: "#F2C811" },
   { name: "Python", cdn: "python", color: "#3776AB" },
   { name: "PyTorch", cdn: "pytorch", color: "#EE4C2C" },
@@ -44,6 +49,7 @@ const allSkills: Skill[] = [
   { name: "React", cdn: "react", color: "#61DAFB" },
   { name: "Render", cdn: "render", color: "#FFFFFF" },
   { name: "Shopify", cdn: "shopify", color: "#7AB55C" },
+  { name: "STM32", cdn: "stmicroelectronics", color: "#03234B" },
   { name: "Supabase", cdn: "supabase", color: "#3FCF8E" },
   { name: "Tailwind CSS", cdn: "tailwindcss", color: "#06B6D4" },
   { name: "TensorFlow", cdn: "tensorflow", color: "#FF6F00" },
@@ -77,8 +83,8 @@ export default function SkillsSection({ isDark }: SkillsSectionProps) {
               <span style={{ color: "var(--primary)" }}>Arsenal</span>
             </h2>
             <div className="w-20 h-0.5 mx-auto mb-4" style={{ background: "var(--primary)" }} />
-            <p className="text-sm max-w-lg mx-auto" style={{ color: "var(--muted-foreground)" }}>
-              Tools, frameworks, and platforms I build with.
+          <p className="text-sm max-w-lg mx-auto" style={{ color: "var(--muted-foreground)" }}>
+              Tools, frameworks, and platforms I use for AI systems, automation, edge devices, and product interfaces.
             </p>
           </motion.div>
 
