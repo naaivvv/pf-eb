@@ -35,7 +35,7 @@ const projects: Project[] = [
     techStack: ["n8n", "Supabase", "pgvector", "RAG", "Slack"],
     category: "AI Automation",
     year: "2026",
-    image: getProjectImage("placeholder.svg"),
+    image: getProjectImage("business-ops.jpeg"),
   },
   {
     id: "rfp-architect",
@@ -45,7 +45,7 @@ const projects: Project[] = [
     techStack: ["CrewAI", "FastAPI", "Next.js", "Supabase", "RAG"],
     category: "Agentic AI",
     year: "2026",
-    image: getProjectImage("placeholder.svg"),
+    image: getProjectImage("b2b-rfp.png"),
   },
   {
     id: "voice-dispatcher",
