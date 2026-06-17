@@ -13,7 +13,7 @@ import {
   Code2,
   Calendar,
 } from "lucide-react";
-import portraitImg from "@/assets/portrait.png";
+import portraitImg from "@/assets/portrait.jpeg";
 
 const quickStats = [
   { label: "Years Experience", value: "3+", icon: Sparkles },
